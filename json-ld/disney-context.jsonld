@@ -1,0 +1,82 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "disney": "https://disneyapi.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Character": "disney:Character",
+    "CharacterPage": "disney:CharacterPage",
+    "PageInfo": "disney:PageInfo",
+    "ServiceIndex": "disney:ServiceIndex",
+
+    "_id": {
+      "@id": "schema:identifier",
+      "@type": "xsd:integer"
+    },
+    "name": "schema:name",
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "sourceUrl": {
+      "@id": "dcterms:source",
+      "@type": "@id"
+    },
+    "imageUrl": {
+      "@id": "schema:image",
+      "@type": "@id"
+    },
+    "films": {
+      "@id": "disney:films",
+      "@container": "@set"
+    },
+    "shortFilms": {
+      "@id": "disney:shortFilms",
+      "@container": "@set"
+    },
+    "tvShows": {
+      "@id": "disney:tvShows",
+      "@container": "@set"
+    },
+    "videoGames": {
+      "@id": "disney:videoGames",
+      "@container": "@set"
+    },
+    "parkAttractions": {
+      "@id": "disney:parkAttractions",
+      "@container": "@set"
+    },
+    "allies": {
+      "@id": "disney:allies",
+      "@container": "@set"
+    },
+    "enemies": {
+      "@id": "disney:enemies",
+      "@container": "@set"
+    },
+    "alignment": "disney:alignment",
+
+    "info": "disney:pageInfo",
+    "data": "disney:data",
+    "count": {
+      "@id": "disney:count",
+      "@type": "xsd:integer"
+    },
+    "totalPages": {
+      "@id": "disney:totalPages",
+      "@type": "xsd:integer"
+    },
+    "previousPage": {
+      "@id": "disney:previousPage",
+      "@type": "@id"
+    },
+    "nextPage": {
+      "@id": "disney:nextPage",
+      "@type": "@id"
+    },
+
+    "description": "schema:description"
+  }
+}

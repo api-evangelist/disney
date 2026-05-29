@@ -1,0 +1,39 @@
+{
+  "info": {
+    "count": 2,
+    "totalPages": 4911,
+    "previousPage": null,
+    "nextPage": "http://api.disneyapi.dev/character?page=2&pageSize=2"
+  },
+  "data": [
+    {
+      "_id": 112,
+      "films": ["Hercules (film)"],
+      "shortFilms": [],
+      "tvShows": ["Hercules (TV series)"],
+      "videoGames": ["Kingdom Hearts III"],
+      "parkAttractions": [],
+      "allies": [],
+      "enemies": [],
+      "name": "Achilles",
+      "imageUrl": "https://static.wikia.nocookie.net/disney/images/6/67/HATS_Achilles.png",
+      "url": "https://api.disneyapi.dev/characters/112"
+    },
+    {
+      "_id": 18,
+      "films": [
+        "The Fox and the Hound",
+        "The Fox and the Hound 2"
+      ],
+      "shortFilms": [],
+      "tvShows": [],
+      "videoGames": [],
+      "parkAttractions": [],
+      "allies": [],
+      "enemies": [],
+      "name": "Abigail the Cow",
+      "imageUrl": "https://static.wikia.nocookie.net/disney/images/0/05/Fox-disneyscreencaps_com-901.jpg",
+      "url": "https://api.disneyapi.dev/characters/18"
+    }
+  ]
+}

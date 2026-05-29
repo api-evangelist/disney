@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/disney/refs/heads/main/json-schema/disney-page-info-schema.json",
+  "title": "PageInfo",
+  "description": "Pagination envelope returned alongside every character response.",
+  "type": "object",
+  "required": [
+    "count",
+    "totalPages"
+  ],
+  "properties": {
+    "count": {
+      "type": "integer",
+      "description": "Number of records returned in this page (`data` length, or 1 when `data` is a single object).",
+      "example": 2
+    },
+    "totalPages": {
+      "type": "integer",
+      "description": "Total number of pages available for the current filter at the current `pageSize`.",
+      "example": 4911
+    },
+    "previousPage": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Absolute URL to the previous page of results, or null on the first page.",
+      "example": null
+    },
+    "nextPage": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Absolute URL to the next page of results, or null on the last page.",
+      "example": "http://api.disneyapi.dev/character?page=2&pageSize=2"
+    }
+  }
+}

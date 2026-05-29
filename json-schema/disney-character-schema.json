@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/disney/refs/heads/main/json-schema/disney-character-schema.json",
+  "title": "Character",
+  "description": "A single Disney character record sourced from the Disney Wiki.",
+  "type": "object",
+  "required": [
+    "_id",
+    "name",
+    "url"
+  ],
+  "properties": {
+    "_id": {
+      "type": "integer",
+      "description": "Auto-incrementing numeric character id assigned by the service.",
+      "example": 308
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the Disney character.",
+      "example": "Queen Arianna"
+    },
+    "films": {
+      "type": "array",
+      "description": "Feature films in which the character appears.",
+      "items": {
+        "type": "string",
+        "description": "Film title."
+      },
+      "example": ["Tangled"]
+    },
+    "shortFilms": {
+      "type": "array",
+      "description": "Short films in which the character appears.",
+      "items": {
+        "type": "string",
+        "description": "Short film title."
+      },
+      "example": ["Tangled Ever After"]
+    },
+    "tvShows": {
+      "type": "array",
+      "description": "TV shows in which the character appears.",
+      "items": {
+        "type": "string",
+        "description": "TV show title."
+      },
+      "example": ["Tangled: The Series"]
+    },
+    "videoGames": {
+      "type": "array",
+      "description": "Video games in which the character appears.",
+      "items": {
+        "type": "string",
+        "description": "Video game title."
+      },
+      "example": ["Kingdom Hearts III"]
+    },
+    "parkAttractions": {
+      "type": "array",
+      "description": "Disney park attractions in which the character appears.",
+      "items": {
+        "type": "string",
+        "description": "Park attraction name."
+      },
+      "example": ["Celebrate the Magic"]
+    },
+    "allies": {
+      "type": "array",
+      "description": "Named allies of the character within Disney canon.",
+      "items": {
+        "type": "string",
+        "description": "Ally name."
+      },
+      "example": ["Mickey Mouse"]
+    },
+    "enemies": {
+      "type": "array",
+      "description": "Named enemies of the character within Disney canon.",
+      "items": {
+        "type": "string",
+        "description": "Enemy name."
+      },
+      "example": ["Pete"]
+    },
+    "alignment": {
+      "type": "string",
+      "description": "Moral alignment of the character (e.g. Good, Bad, Neutral) when known.",
+      "example": "Good"
+    },
+    "sourceUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "Upstream Disney Wiki URL from which the record was sourced.",
+      "example": "https://disney.fandom.com/wiki/Queen_Arianna"
+    },
+    "imageUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of a character thumbnail image hosted on the Disney Fandom Wiki CDN.",
+      "example": "https://static.wikia.nocookie.net/disney/images/1/15/Arianna_Tangled.jpg"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical self URL for this character record.",
+      "example": "https://api.disneyapi.dev/characters/308"
+    }
+  }
+}

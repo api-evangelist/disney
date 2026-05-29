@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/disney/refs/heads/main/json-structure/disney-character-page-structure.json",
+  "name": "CharacterPage",
+  "description": "Paginated character list response envelope. `data` is an array of Character when multiple match, a single Character when one matches, or an empty array when none match.",
+  "type": "object",
+  "required": [
+    "info",
+    "data"
+  ],
+  "properties": {
+    "info": {
+      "$ref": "https://raw.githubusercontent.com/api-evangelist/disney/refs/heads/main/json-structure/disney-page-info-structure.json"
+    },
+    "data": {
+      "description": "Either an array of Character, a single Character, or an empty array.",
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "https://raw.githubusercontent.com/api-evangelist/disney/refs/heads/main/json-structure/disney-character-structure.json"
+          }
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/api-evangelist/disney/refs/heads/main/json-structure/disney-character-structure.json"
+        }
+      ]
+    }
+  }
+}

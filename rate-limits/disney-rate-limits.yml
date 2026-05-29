@@ -1,0 +1,98 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+
+provider: Disney API
+providerId: disney
+created: '2026-05-29'
+modified: '2026-05-29'
+reconciled: false
+
+tags:
+  - Rate Limiting
+  - Entertainment
+  - Characters
+  - Open Source
+
+description: >-
+  Disney API (disneyapi.dev) is a free, unauthenticated REST and GraphQL
+  service for Disney character data, maintained by a single open source
+  contributor (ManuCastrillonM) and historically hosted on Heroku. The
+  provider does not publish per-key, per-IP, or per-account request-rate
+  limits in the project README or on the disneyapi.dev documentation
+  site. The README explicitly calls out that infrastructure costs are
+  paid out of pocket by the maintainer and invites donations via a
+  Support Us page, so consumers should treat the API as best-effort and
+  apply client-side caching, batching, and exponential backoff to avoid
+  exhausting the maintainer-funded infrastructure budget.
+
+sources:
+  - https://disneyapi.dev/docs/
+  - https://disneyapi.dev/support-us/
+  - https://github.com/ManuCastrillonM/disney-api
+  - https://status.disneyapi.dev/
+
+responseCodes:
+  throttled: 429
+  serverError: 500
+
+limits:
+  - name: Documented per-key request rate
+    scope: key
+    metric: requests_per_second
+    limit: 'not documented — service does not issue API keys or publish per-account rate limits'
+    notes: >-
+      The provider does not publish numeric request-rate limits. Plan for
+      best-effort access and degrade gracefully on 429 / 5xx.
+
+  - name: Platform-level Heroku dyno caps
+    scope: account
+    metric: varies
+    limit: 'bounded by the maintainer-funded Heroku dyno tier'
+    notes: >-
+      The upstream service is hosted on Heroku and underwritten by a
+      single open source maintainer. Throughput is effectively bounded
+      by the dyno tier and MongoDB plan the maintainer is paying for,
+      not by any provider-declared rate-limit policy.
+
+  - name: Edge / proxy abuse mitigation
+    scope: IP
+    metric: varies
+    limit: 'enforced opaquely by upstream platform'
+    notes: >-
+      Excessive request rates from a single source IP may trigger
+      upstream platform protections (challenge pages, 429s, or temporary
+      blocks) independently of any provider-defined limit.
+
+policies:
+  - name: Cache aggressively
+    description: >-
+      The character dataset (9,820+ records) changes very slowly. Clients
+      should cache entire pages — or the full corpus — locally and refresh
+      on a daily or weekly cadence rather than refetching on every read.
+
+  - name: Apply client-side throttling
+    description: >-
+      Because no published limits exist, consumers should self-throttle
+      (e.g. 1 request per second per client) and avoid burst patterns that
+      could destabilize the donation-funded backend.
+
+  - name: Use exponential backoff on 429 / 5xx
+    description: >-
+      On HTTP 429 or 5xx responses, back off exponentially before
+      retrying. The API has no Retry-After header and no remaining-budget
+      header to consult, so blind backoff is the safest strategy.
+
+  - name: Prefer pageSize boundaries that match upstream
+    description: >-
+      Default pageSize is 50. Honor the default unless your workload
+      benefits from a larger page; very large pageSize values increase
+      memory pressure on the upstream dyno without saving roundtrips
+      relative to using paging plus client-side caching.
+
+  - name: Support the maintainer
+    description: >-
+      The project README explicitly invites donations to underwrite
+      hosting costs. Commercial consumers depending on the API should
+      consider contributing via the Support Us page so the service
+      remains available.

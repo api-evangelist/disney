@@ -1,0 +1,419 @@
+# Spectral ruleset for Disney API (disneyapi.dev)
+#
+# Encodes the conventions found in the Disney API OpenAPI specification:
+# - OpenAPI 3.0.3
+# - Two-tag taxonomy ("Characters", "Index")
+# - Lowercase paths with kebab/segment style and numeric {id} path parameters
+# - camelCase operationIds, Title Case summaries prefixed with "Disney API"
+# - All operations are GET; no request bodies, no authentication
+# - JSON responses with an {info, data} envelope
+# - Hosted on Heroku at https://api.disneyapi.dev
+
+extends:
+  - spectral:oas
+
+rules:
+
+  # INFO / METADATA
+  info-title-prefix:
+    description: Spec title must begin with "Disney API".
+    message: "info.title should start with 'Disney API'"
+    severity: warn
+    given: $.info.title
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Disney API"
+
+  info-description-required:
+    description: A long-form description is required on info.
+    message: "info.description is required and must be at least 60 characters"
+    severity: warn
+    given: $.info
+    then:
+      field: description
+      function: length
+      functionOptions:
+        min: 60
+
+  info-license-required:
+    description: License metadata is required (project is BSD-3-Clause).
+    message: "info.license is required and should be BSD-3-Clause"
+    severity: warn
+    given: $.info
+    then:
+      field: license
+      function: truthy
+
+  info-contact-required:
+    description: Contact info is required so consumers know who to reach.
+    message: "info.contact is required"
+    severity: info
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  # OPENAPI VERSION
+  openapi-version-3-0-3:
+    description: Pin OpenAPI to the 3.0.x line used by this provider.
+    message: "openapi version should be 3.0.x"
+    severity: warn
+    given: $.openapi
+    then:
+      function: pattern
+      functionOptions:
+        match: "^3\\.0\\."
+
+  # SERVERS
+  servers-defined:
+    description: At least one server must be defined.
+    message: "servers array must contain at least one entry"
+    severity: error
+    given: $.servers
+    then:
+      function: length
+      functionOptions:
+        min: 1
+
+  servers-https-only:
+    description: All servers must use HTTPS.
+    message: "server URL must use https://"
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  servers-canonical-host:
+    description: The Disney API canonical host is api.disneyapi.dev.
+    message: "server URL should be https://api.disneyapi.dev"
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://api\\.disneyapi\\.dev"
+
+  servers-description-required:
+    description: Servers should describe what environment they represent.
+    message: "server entries should have a description"
+    severity: info
+    given: $.servers[*]
+    then:
+      field: description
+      function: truthy
+
+  # PATHS — NAMING CONVENTIONS
+  paths-lowercase:
+    description: Path segments must be lowercase (path parameters in {braces} allowed).
+    message: "path '{{value}}' must be lowercase"
+    severity: error
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/[a-z0-9/{}]*$"
+
+  paths-no-trailing-slash:
+    description: Paths must not end with a trailing slash (except root).
+    message: "path '{{value}}' must not end with a trailing slash"
+    severity: error
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: ".+/$"
+
+  paths-no-query-string:
+    description: Paths must not contain a query string.
+    message: "path '{{value}}' must not contain a query string"
+    severity: error
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "\\?"
+
+  # OPERATIONS
+  operation-get-only:
+    description: All Disney API operations are GET.
+    message: "Disney API exposes only GET operations; remove '{{property}}'"
+    severity: warn
+    given: $.paths[*]
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: "^(get|parameters|summary|description)$"
+
+  operation-summary-required:
+    description: Every operation must have a summary.
+    message: "operation summary is required"
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: summary
+      function: truthy
+
+  operation-summary-prefix:
+    description: Operation summaries must start with "Disney API".
+    message: "operation summary should start with 'Disney API'"
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Disney API "
+
+  operation-description-required:
+    description: Every operation must have a description.
+    message: "operation description is required"
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: description
+      function: truthy
+
+  operation-operationid-required:
+    description: Every operation must have a camelCase operationId.
+    message: "operation must define an operationId"
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: operationId
+      function: truthy
+
+  operation-operationid-camelcase:
+    description: operationId must be camelCase.
+    message: "operationId '{{value}}' must be camelCase"
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  operation-operationid-verb-prefix:
+    description: operationId must start with a known verb prefix.
+    message: "operationId '{{value}}' should start with get/list/create/update/delete/search"
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(get|list|create|update|delete|search|count|find)"
+
+  operation-tags-required:
+    description: Every operation must declare at least one tag.
+    message: "operation must declare at least one tag"
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+
+  operation-microcks-operation-required:
+    description: Every operation must declare an x-microcks-operation block for mockability.
+    message: "operation should declare x-microcks-operation"
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: x-microcks-operation
+      function: truthy
+
+  # TAGS
+  tags-defined-globally:
+    description: A global tags array must be defined with descriptions.
+    message: "global tags array must be defined"
+    severity: warn
+    given: $
+    then:
+      field: tags
+      function: truthy
+
+  tags-title-case:
+    description: Tags must use Title Case (e.g. "Characters").
+    message: "tag '{{value}}' must be Title Case"
+    severity: warn
+    given: $.tags[*].name
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9]*( [A-Z][a-zA-Z0-9]*)*$"
+
+  tags-description-required:
+    description: Each global tag must have a description.
+    message: "tag descriptions are required"
+    severity: warn
+    given: $.tags[*]
+    then:
+      field: description
+      function: truthy
+
+  # PARAMETERS
+  parameter-description-required:
+    description: All parameters must have a description.
+    message: "parameter '{{value}}' is missing a description"
+    severity: warn
+    given: $.components.parameters[*]
+    then:
+      field: description
+      function: truthy
+
+  parameter-name-camelcase:
+    description: Query/header/path parameter names must be camelCase.
+    message: "parameter name '{{value}}' must be camelCase"
+    severity: warn
+    given: $.components.parameters[*].name
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  path-parameter-id-integer:
+    description: Path parameters named `id` must be typed as integer.
+    message: "path parameter `id` must be type integer"
+    severity: warn
+    given: "$.components.parameters.CharacterId.schema"
+    then:
+      field: type
+      function: pattern
+      functionOptions:
+        match: "^integer$"
+
+  pagination-page-and-pagesize:
+    description: Page-based pagination uses `page` and `pageSize`.
+    message: "pagination parameters should be named `page` and `pageSize`"
+    severity: info
+    given: $.components.parameters[Page,PageSize].name
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(page|pageSize)$"
+
+  # REQUEST BODIES
+  requestbody-not-used:
+    description: Disney API exposes no request bodies; all operations are pure reads.
+    message: "Disney API operations must not declare request bodies"
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].requestBody
+    then:
+      function: falsy
+
+  # RESPONSES
+  response-200-required:
+    description: Every operation must define a 200 success response.
+    message: "operation must define a 200 response"
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].responses
+    then:
+      field: "200"
+      function: truthy
+
+  response-500-required:
+    description: Every operation must define a 500 error response.
+    message: "operation must define a 500 response"
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].responses
+    then:
+      field: "500"
+      function: truthy
+
+  response-description-required:
+    description: Each response must have a description.
+    message: "response description is required"
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].responses[*]
+    then:
+      field: description
+      function: truthy
+
+  response-json-content:
+    description: 2xx responses must use application/json.
+    message: "2xx responses should use application/json"
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete].responses[200].content
+    then:
+      field: application/json
+      function: truthy
+
+  response-example-required:
+    description: Every 200 response should ship a named example for mock servers.
+    message: "200 responses should include named examples"
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete].responses[200].content[*]
+    then:
+      field: examples
+      function: truthy
+
+  # SCHEMAS — PROPERTY NAMING
+  schema-property-camelcase:
+    description: Schema property names must be camelCase, with `_id` allowed as a Mongo-native exception.
+    message: "schema property '{{property}}' must be camelCase (or `_id`)"
+    severity: warn
+    given: $.components.schemas[*].properties[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(_id|[a-z][a-zA-Z0-9]*)$"
+
+  schema-property-description:
+    description: Schema properties must be described.
+    message: "schema property '{{property}}' is missing a description"
+    severity: warn
+    given: $.components.schemas[*].properties[*]
+    then:
+      field: description
+      function: truthy
+
+  schema-top-level-description:
+    description: Top-level schemas must have a description.
+    message: "schema '{{property}}' is missing a description"
+    severity: warn
+    given: $.components.schemas[*]
+    then:
+      field: description
+      function: truthy
+
+  # ENVELOPE
+  response-envelope-info-data:
+    description: List/show responses use an envelope of {info, data}.
+    message: "CharacterPage and CharacterSingle must expose `info` and `data`"
+    severity: info
+    given: "$.components.schemas[CharacterPage,CharacterSingle].properties"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          required:
+            - info
+            - data
+
+  # SECURITY
+  security-none:
+    description: Disney API is an open, unauthenticated public API; reject security schemes.
+    message: "Disney API has no authentication; remove security schemes"
+    severity: info
+    given: $.components.securitySchemes
+    then:
+      function: falsy
+
+  # HTTP METHOD CONVENTIONS
+  method-get-no-request-body:
+    description: GET operations must not declare a request body.
+    message: "GET operations must not declare a requestBody"
+    severity: error
+    given: $.paths[*].get.requestBody
+    then:
+      function: falsy
+
+  # GENERAL QUALITY
+  no-empty-descriptions:
+    description: Descriptions must not be empty strings.
+    message: "description must not be empty"
+    severity: warn
+    given: $..description
+    then:
+      function: truthy

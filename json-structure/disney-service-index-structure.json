@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/disney/refs/heads/main/json-structure/disney-service-index-structure.json",
+  "name": "ServiceIndex",
+  "description": "Map of named REST operations to their URL templates returned by GET /.",
+  "type": "object",
+  "required": [
+    "getCharacter",
+    "getCharacterById",
+    "getCharactersById"
+  ],
+  "properties": {
+    "getCharacter": {
+      "type": "string",
+      "description": "URL template for the paginated character list endpoint.",
+      "example": "/character"
+    },
+    "getCharacterById": {
+      "type": "string",
+      "description": "URL template for the single-character-by-id endpoint.",
+      "example": "/character/:id"
+    },
+    "getCharactersById": {
+      "type": "string",
+      "description": "URL template for the plural-path single-character alias.",
+      "example": "/characters/:id"
+    }
+  }
+}

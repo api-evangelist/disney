@@ -1,0 +1,263 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Disney API — Characters"
+  description: >-
+    Characters — Disney API. 4 operations. Lead operation: List Characters.
+    Self-contained Naftiko capability covering the entire Disney API
+    character business surface (list, get-by-id, plural alias, and the
+    service index).
+  tags:
+    - Disney API
+    - Characters
+    - Entertainment
+    - Open Source
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+binds:
+  - namespace: env
+    keys: {}
+
+capability:
+
+  # 1. Consumes — the upstream HTTP API this capability speaks to
+  consumes:
+    - type: http
+      namespace: "disney-characters"
+      baseUri: "https://api.disneyapi.dev"
+      description: "Disney API — Characters business capability. Public unauthenticated REST API exposing 9,820+ Disney characters."
+      resources:
+        - name: "root"
+          path: "/"
+          operations:
+            - name: "getServiceIndex"
+              method: GET
+              description: "Returns a map of available REST endpoint URL templates."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "character"
+          path: "/character"
+          operations:
+            - name: "listCharacters"
+              method: GET
+              description: "Returns a paginated list of Disney characters. Supports page, pageSize, and field-level substring filters."
+              inputParameters:
+                - name: page
+                  type: integer
+                  required: false
+                  in: query
+                - name: pageSize
+                  type: integer
+                  required: false
+                  in: query
+                - name: name
+                  type: string
+                  required: false
+                  in: query
+                - name: films
+                  type: string
+                  required: false
+                  in: query
+                - name: shortFilms
+                  type: string
+                  required: false
+                  in: query
+                - name: tvShows
+                  type: string
+                  required: false
+                  in: query
+                - name: videoGames
+                  type: string
+                  required: false
+                  in: query
+                - name: parkAttractions
+                  type: string
+                  required: false
+                  in: query
+                - name: allies
+                  type: string
+                  required: false
+                  in: query
+                - name: enemies
+                  type: string
+                  required: false
+                  in: query
+                - name: alignment
+                  type: string
+                  required: false
+                  in: query
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "characterById"
+          path: "/character/{id}"
+          operations:
+            - name: "getCharacterById"
+              method: GET
+              description: "Retrieves a single Disney character by numeric id."
+              inputParameters:
+                - name: id
+                  type: integer
+                  required: true
+                  in: path
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "charactersById"
+          path: "/characters/{id}"
+          operations:
+            - name: "getCharactersById"
+              method: GET
+              description: "Plural-path alias for /character/{id}."
+              inputParameters:
+                - name: id
+                  type: integer
+                  required: true
+                  in: path
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  # 2. REST exposer — Spectral-compliant /v1 surface, one resource per consumed op
+  exposes:
+    - type: rest
+      namespace: "disney-characters-rest"
+      port: 8080
+      description: "REST adapter for Disney API — Characters. Spectral-compliant /v1 surface."
+      resources:
+        - path: "/v1/service-index"
+          name: "service-index"
+          description: "REST surface for the upstream service index map."
+          operations:
+            - method: GET
+              name: "getServiceIndex"
+              description: "Returns the Disney API service index."
+              call: "disney-characters.getServiceIndex"
+              with: {}
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/characters"
+          name: "characters"
+          description: "REST surface for listing Disney characters with paging and field filters."
+          operations:
+            - method: GET
+              name: "listCharacters"
+              description: "Returns a paginated list of Disney characters."
+              call: "disney-characters.listCharacters"
+              with:
+                page: "$query.page"
+                pageSize: "$query.pageSize"
+                name: "$query.name"
+                films: "$query.films"
+                shortFilms: "$query.shortFilms"
+                tvShows: "$query.tvShows"
+                videoGames: "$query.videoGames"
+                parkAttractions: "$query.parkAttractions"
+                allies: "$query.allies"
+                enemies: "$query.enemies"
+                alignment: "$query.alignment"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/characters/{id}"
+          name: "character-by-id"
+          description: "REST surface for retrieving a single Disney character by id."
+          operations:
+            - method: GET
+              name: "getCharacterById"
+              description: "Retrieves a single Disney character by numeric id."
+              call: "disney-characters.getCharacterById"
+              with:
+                id: "$path.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/characters/{id}/alias"
+          name: "character-by-id-alias"
+          description: "REST surface exposing the plural-path alias for retrieving a Disney character by id."
+          operations:
+            - method: GET
+              name: "getCharactersById"
+              description: "Plural-path alias for retrieving a Disney character by id."
+              call: "disney-characters.getCharactersById"
+              with:
+                id: "$path.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+  # 3. MCP exposer — one verb-noun tool per consumed op
+    - type: mcp
+      namespace: "disney-characters-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Disney API — Characters. One tool per consumed operation."
+      tools:
+        - name: "get-service-index"
+          description: "Returns the Disney API service index map of endpoint URL templates."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "disney-characters.getServiceIndex"
+          with: {}
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "list-characters"
+          description: "Lists Disney characters with paging and field-level substring filters."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "disney-characters.listCharacters"
+          with:
+            page: "$input.page"
+            pageSize: "$input.pageSize"
+            name: "$input.name"
+            films: "$input.films"
+            shortFilms: "$input.shortFilms"
+            tvShows: "$input.tvShows"
+            videoGames: "$input.videoGames"
+            parkAttractions: "$input.parkAttractions"
+            allies: "$input.allies"
+            enemies: "$input.enemies"
+            alignment: "$input.alignment"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-character-by-id"
+          description: "Retrieves a single Disney character by numeric id."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "disney-characters.getCharacterById"
+          with:
+            id: "$input.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "get-characters-by-id"
+          description: "Plural-path alias for retrieving a Disney character by id."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "disney-characters.getCharactersById"
+          with:
+            id: "$input.id"
+          outputParameters:
+            - type: object
+              mapping: "$."

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/disney/refs/heads/main/json-schema/disney-character-page-schema.json",
+  "title": "CharacterPage",
+  "description": "Paginated character list response. `data` is an array when multiple characters match, or a single object when one matches, or an empty array when none match.",
+  "type": "object",
+  "required": [
+    "info",
+    "data"
+  ],
+  "properties": {
+    "info": {
+      "$ref": "https://raw.githubusercontent.com/api-evangelist/disney/refs/heads/main/json-schema/disney-page-info-schema.json"
+    },
+    "data": {
+      "oneOf": [
+        {
+          "type": "array",
+          "description": "Multiple character records matching the request.",
+          "items": {
+            "$ref": "https://raw.githubusercontent.com/api-evangelist/disney/refs/heads/main/json-schema/disney-character-schema.json"
+          }
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/api-evangelist/disney/refs/heads/main/json-schema/disney-character-schema.json"
+        },
+        {
+          "type": "array",
+          "maxItems": 0,
+          "description": "Empty array indicating no records matched.",
+          "items": {}
+        }
+      ]
+    }
+  }
+}

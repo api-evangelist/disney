@@ -1,0 +1,32 @@
+{
+  "_id": 308,
+  "name": "Queen Arianna",
+  "films": [
+    "Tangled",
+    "Tangled: Before Ever After"
+  ],
+  "shortFilms": [
+    "Tangled Ever After",
+    "Hare Peace",
+    "The Simpsons: May the 12th Be With You"
+  ],
+  "tvShows": [
+    "Once Upon a Time",
+    "Tangled: The Series"
+  ],
+  "videoGames": [
+    "Disney Princess Enchanting Storybooks",
+    "Hidden Worlds",
+    "Disney Crossy Road",
+    "Kingdom Hearts III",
+    "Disney Speedstorm"
+  ],
+  "parkAttractions": [
+    "Celebrate the Magic",
+    "Jingle Bell, Jingle BAM!"
+  ],
+  "allies": [],
+  "enemies": [],
+  "imageUrl": "https://static.wikia.nocookie.net/disney/images/1/15/Arianna_Tangled.jpg",
+  "url": "https://api.disneyapi.dev/characters/308"
+}

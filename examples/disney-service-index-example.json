@@ -1,0 +1,5 @@
+{
+  "getCharacter": "/character",
+  "getCharacterById": "/character/:id",
+  "getCharactersById": "/characters/:id"
+}

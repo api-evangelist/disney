@@ -1,0 +1,206 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Disney API"
+  description: >-
+    Vocabulary for the Disney API — a community-maintained REST and
+    GraphQL API exposing a database of 9,820+ Disney characters and the
+    films, short films, TV shows, video games, and park attractions they
+    appear in. Captures the operational dimension (four GET endpoints
+    across two tags, four schemas) and the capability dimension (one
+    Characters capability exposing four MCP tools and four REST resources).
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+# OPERATIONAL DIMENSION (from OpenAPI)
+operational:
+  apis:
+    - name: "Disney API"
+      namespace: "disney"
+      version: "1.0.0"
+      baseUrl: "https://api.disneyapi.dev"
+      status: active
+
+  resources:
+    - name: "characters"
+      api: "disney"
+      description: "Disney characters and the works/attractions they appear in."
+      actions:
+        - listCharacters
+        - getCharacterById
+        - getCharactersById
+    - name: "service-index"
+      api: "disney"
+      description: "Service discovery map of REST endpoint URL templates."
+      actions:
+        - getServiceIndex
+
+  actions:
+    - name: "list"
+      verb: "list"
+      pattern: read
+      httpMethod: GET
+      operations:
+        - listCharacters
+    - name: "get"
+      verb: "get"
+      pattern: read
+      httpMethod: GET
+      operations:
+        - getCharacterById
+        - getCharactersById
+        - getServiceIndex
+
+  schemas:
+    core:
+      - name: Character
+        properties:
+          - _id
+          - name
+          - films
+          - shortFilms
+          - tvShows
+          - videoGames
+          - parkAttractions
+          - allies
+          - enemies
+          - alignment
+          - sourceUrl
+          - imageUrl
+          - url
+        description: "A single Disney character record."
+      - name: CharacterPage
+        properties:
+          - info
+          - data
+        description: "Paginated character list envelope."
+      - name: CharacterSingle
+        properties:
+          - info
+          - data
+        description: "Single-character response envelope."
+      - name: PageInfo
+        properties:
+          - count
+          - totalPages
+          - previousPage
+          - nextPage
+        description: "Pagination metadata returned in every response."
+      - name: ServiceIndex
+        properties:
+          - getCharacter
+          - getCharacterById
+          - getCharactersById
+        description: "Service discovery map."
+
+  parameters:
+    pagination:
+      - name: page
+        description: "1-based page index."
+      - name: pageSize
+        description: "Items per page (default 50)."
+    identifiers:
+      - name: id
+        description: "Numeric character id."
+    filters:
+      - name: name
+      - name: films
+      - name: shortFilms
+      - name: tvShows
+      - name: videoGames
+      - name: parkAttractions
+      - name: allies
+      - name: enemies
+      - name: alignment
+
+  enums: {}
+
+  authentication:
+    schemes: []
+    notes: "Disney API is fully open; no API key, token, or scoped credential is required."
+
+# CAPABILITY DIMENSION (from Naftiko)
+capability:
+  workflows:
+    - name: "Disney API — Characters"
+      file: "capabilities/disney-characters.yaml"
+      description: "Self-contained capability exposing the four Disney API endpoints over both a Spectral-compliant REST surface and an MCP tool surface."
+      apisCombined:
+        - disney
+      toolCount: 4
+      restResourceCount: 4
+      personas:
+        - fan-app-builder
+        - bot-builder
+        - data-explorer
+        - frontend-tutorial-author
+      domains:
+        - Entertainment
+        - Characters
+
+  personas:
+    - id: fan-app-builder
+      name: "Fan App Builder"
+      description: "Builds Disney fan apps, character browsers, and trivia games against a freely available character DB."
+      workflows:
+        - "Disney API — Characters"
+    - id: bot-builder
+      name: "Bot Builder"
+      description: "Builds Discord, Slack, and Twitter bots that look up Disney characters on demand."
+      workflows:
+        - "Disney API — Characters"
+    - id: data-explorer
+      name: "Data Explorer"
+      description: "Performs ad-hoc exploration of Disney canon across films, shorts, TV, video games, and park attractions."
+      workflows:
+        - "Disney API — Characters"
+    - id: frontend-tutorial-author
+      name: "Frontend Tutorial Author"
+      description: "Uses Disney API as a richer fixture than typical Hello-World APIs for teaching pagination, filtering, and image rendering."
+      workflows:
+        - "Disney API — Characters"
+
+  domains:
+    - name: "Entertainment"
+      description: "APIs centered on films, TV, video games, and themed entertainment properties."
+      resources:
+        - characters
+      workflows:
+        - "Disney API — Characters"
+    - name: "Characters"
+      description: "APIs that surface character records (fictional, public figures, mascots) and their canonical relationships."
+      resources:
+        - characters
+      workflows:
+        - "Disney API — Characters"
+
+  namespaces:
+    - consumed: "disney-characters"
+      rest: "disney-characters-rest"
+      mcp: "disney-characters-mcp"
+      restPort: 8080
+      mcpPort: 9090
+
+  binds: []
+
+# CROSS-REFERENCE
+crossReference:
+  - resource: characters
+    operations:
+      - listCharacters
+      - getCharacterById
+      - getCharactersById
+    workflows:
+      - "Disney API — Characters"
+    personas:
+      - fan-app-builder
+      - bot-builder
+      - data-explorer
+      - frontend-tutorial-author
+  - resource: service-index
+    operations:
+      - getServiceIndex
+    workflows:
+      - "Disney API — Characters"
+    personas:
+      - data-explorer
