@@ -1,0 +1,14 @@
+aid: disney
+name: Disney
+description: "Profile for Disney (provider to be enriched via pipeline)"
+url: https://disney.com
+specificationVersion: '0.20'
+created: '2026-05-29'
+modified: '2026-05-29'
+x-source: manual-create
+x-tier: 3
+tags:
+  - Entertainment
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
