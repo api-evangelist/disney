@@ -1,15 +1,11 @@
 aid: disney
 name: Disney API
 description: >-
-  Community-maintained RESTful and GraphQL API exposing a database of
-  9,820+ Disney characters and the films, short films, TV shows, video
-  games, and park attractions they appear in. The project (BSD-3-Clause)
-  is developed in the open by Manu Castrillon at
-  https://github.com/ManuCastrillonM/disney-api and documented at
-  https://disneyapi.dev. The REST surface is unauthenticated and read-only.
-  Disney and Disney characters are trademarks of The Walt Disney Company;
-  this project is community fan-content and is not affiliated with or
-  endorsed by Disney.
+  Community-maintained RESTful and GraphQL API exposing a database of 9,820+ Disney characters and the films, short
+  films, TV shows, video games, and park attractions they appear in. The project (BSD-3-Clause) is developed in the open
+  by Manu Castrillon at https://github.com/ManuCastrillonM/disney-api and documented at https://disneyapi.dev. The REST
+  surface is unauthenticated and read-only. Disney and Disney characters are trademarks of The Walt Disney Company; this
+  project is community fan-content and is not affiliated with or endorsed by Disney.
 url: https://disneyapi.dev
 baseURL: https://api.disneyapi.dev
 specificationVersion: '0.20'
@@ -21,169 +17,188 @@ x-category: Entertainment
 x-tier: 3
 x-tier-reason: community-fan-api-disney-character-db
 tags:
-  - Entertainment
-  - Characters
-  - Disney
-  - Open Source
-  - Fan API
-  - REST
-  - GraphQL
+- Entertainment
+- Characters
+- Disney
+- Open Source
+- Fan API
+- REST
+- GraphQL
 apis:
-  - name: Disney API (REST)
-    description: >-
-      RESTful Disney character API. Four GET endpoints: a service index
-      at the root, a paginated character list at /character, and two
-      by-id endpoints (/character/:id and the plural alias /characters/:id).
-      Supports field-level substring filters on name, films, shortFilms,
-      tvShows, videoGames, parkAttractions, allies, enemies, and alignment.
-    humanURL: https://disneyapi.dev/docs/
-    baseURL: https://api.disneyapi.dev
-    tags:
-      - Characters
-      - REST
-    properties:
-      - type: Documentation
-        url: https://disneyapi.dev/docs/
-      - type: APIReference
-        url: https://disneyapi.dev/docs/
-      - type: SourceCode
-        url: https://github.com/ManuCastrillonM/disney-api
-      - type: OpenAPI
-        url: openapi/disney-openapi.yml
-      - type: NaftikoCapability
-        url: capabilities/disney-characters.yaml
-      - type: Authentication
-        url: https://disneyapi.dev/docs/
-        title: No authentication required (GET-only public API)
-  - name: Disney API (GraphQL)
-    description: >-
-      GraphQL Disney character API hosted at /graphql. Single root field
-      `characters(page, pageSize, filter)` returns a `CharacterPage`
-      with `items` and `paginationInfo`. The `CharacterFilterInput`
-      accepts id, name, films, shortFilms, tvShows, videoGames,
-      alignment, parkAttractions, allies, and enemies as substring
-      filters. Schema is derived directly from the published source.
-    humanURL: https://disneyapi.dev/docs/
-    baseURL: https://api.disneyapi.dev/graphql
-    tags:
-      - Characters
-      - GraphQL
-    properties:
-      - type: Documentation
-        url: https://disneyapi.dev/docs/
-      - type: SourceCode
-        url: https://github.com/ManuCastrillonM/disney-api/blob/main/src/graphql/typeDefs.js
-      - type: Authentication
-        url: https://disneyapi.dev/docs/
-        title: No authentication required
-common:
-  - type: Website
-    url: https://disneyapi.dev
+- name: Disney API (REST)
+  description: >-
+    RESTful Disney character API. Four GET endpoints: a service index at the root, a paginated character list at
+    /character, and two by-id endpoints (/character/:id and the plural alias /characters/:id). Supports field-level
+    substring filters on name, films, shortFilms, tvShows, videoGames, parkAttractions, allies, enemies, and
+    alignment.
+  humanURL: https://disneyapi.dev/docs/
+  baseURL: https://api.disneyapi.dev
+  tags:
+  - Characters
+  - REST
+  properties:
   - type: Documentation
+    url: https://disneyapi.dev/docs/
+  - type: APIReference
     url: https://disneyapi.dev/docs/
   - type: SourceCode
     url: https://github.com/ManuCastrillonM/disney-api
-    title: Disney API (RESTful and GraphQL server)
+  - type: OpenAPI
+    url: openapi/disney-openapi.yml
+  - type: Authentication
+    url: https://disneyapi.dev/docs/
+    title: No authentication required (GET-only public API)
+- name: Disney API (GraphQL)
+  description: >-
+    GraphQL Disney character API hosted at /graphql. Single root field `characters(page, pageSize, filter)` returns a
+    `CharacterPage` with `items` and `paginationInfo`. The `CharacterFilterInput` accepts id, name, films, shortFilms,
+    tvShows, videoGames, alignment, parkAttractions, allies, and enemies as substring filters. Schema is derived
+    directly from the published source.
+  humanURL: https://disneyapi.dev/docs/
+  baseURL: https://api.disneyapi.dev/graphql
+  tags:
+  - Characters
+  - GraphQL
+  properties:
+  - type: Documentation
+    url: https://disneyapi.dev/docs/
   - type: SourceCode
-    url: https://github.com/ManuCastrillonM/disneyapi.dev
-    title: disneyapi.dev documentation site (Gatsby)
-  - type: License
-    url: https://github.com/ManuCastrillonM/disney-api/blob/main/LICENSE
-    title: BSD-3-Clause
-  - type: StatusPage
-    url: https://status.disneyapi.dev/
-  - type: SignUp
-    url: https://disneyapi.dev/support-us/
-    title: Support Us (donations to underwrite hosting)
-  - type: GitHubRepository
-    url: https://github.com/ManuCastrillonM/disney-api
-  - type: GitHubRepository
-    url: https://github.com/ManuCastrillonM/disneyapi.dev
-  - type: SpectralRules
-    url: rules/disney-rules.yml
-  - type: Vocabulary
-    url: vocabulary/disney-vocabulary.yml
-  - type: JSONLD
-    url: json-ld/disney-context.jsonld
-  - type: JSONSchema
-    url: json-schema/disney-character-schema.json
-    title: Character
-  - type: JSONSchema
-    url: json-schema/disney-character-page-schema.json
-    title: CharacterPage
-  - type: JSONSchema
-    url: json-schema/disney-page-info-schema.json
-    title: PageInfo
-  - type: JSONSchema
-    url: json-schema/disney-service-index-schema.json
-    title: ServiceIndex
-  - type: JSONStructure
-    url: json-structure/disney-character-structure.json
-    title: Character
-  - type: JSONStructure
-    url: json-structure/disney-character-page-structure.json
-    title: CharacterPage
-  - type: JSONStructure
-    url: json-structure/disney-page-info-structure.json
-    title: PageInfo
-  - type: JSONStructure
-    url: json-structure/disney-service-index-structure.json
-    title: ServiceIndex
-  - type: Example
-    url: examples/disney-character-example.json
-    title: Character Example
-  - type: Example
-    url: examples/disney-character-page-example.json
-    title: CharacterPage Example
-  - type: Example
-    url: examples/disney-service-index-example.json
-    title: ServiceIndex Example
-  - type: RateLimits
-    url: rate-limits/disney-rate-limits.yml
+    url: https://github.com/ManuCastrillonM/disney-api/blob/main/src/graphql/typeDefs.js
+  - type: Authentication
+    url: https://disneyapi.dev/docs/
+    title: No authentication required
+  - url: graphql/disney-graphql.md
+    type: GraphQL
+common:
+- type: Website
+  url: https://disneyapi.dev
+- type: Documentation
+  url: https://disneyapi.dev/docs/
+- type: SourceCode
+  url: https://github.com/ManuCastrillonM/disney-api
+  title: Disney API (RESTful and GraphQL server)
+- type: SourceCode
+  url: https://github.com/ManuCastrillonM/disneyapi.dev
+  title: disneyapi.dev documentation site (Gatsby)
+- type: License
+  url: https://github.com/ManuCastrillonM/disney-api/blob/main/LICENSE
+  title: BSD-3-Clause
+- type: StatusPage
+  url: https://status.disneyapi.dev/
+- type: SignUp
+  url: https://disneyapi.dev/support-us/
+  title: Support Us (donations to underwrite hosting)
+- type: GitHubRepository
+  url: https://github.com/ManuCastrillonM/disney-api
+- type: GitHubRepository
+  url: https://github.com/ManuCastrillonM/disneyapi.dev
+- type: SpectralRules
+  url: rules/disney-rules.yml
+- type: Vocabulary
+  url: vocabulary/disney-vocabulary.yml
+- type: JSONLD
+  url: json-ld/disney-context.jsonld
+- type: JSONSchema
+  url: json-schema/disney-character-schema.json
+  title: Character
+- type: JSONSchema
+  url: json-schema/disney-character-page-schema.json
+  title: CharacterPage
+- type: JSONSchema
+  url: json-schema/disney-page-info-schema.json
+  title: PageInfo
+- type: JSONSchema
+  url: json-schema/disney-service-index-schema.json
+  title: ServiceIndex
+- type: JSONStructure
+  url: json-structure/disney-character-structure.json
+  title: Character
+- type: JSONStructure
+  url: json-structure/disney-character-page-structure.json
+  title: CharacterPage
+- type: JSONStructure
+  url: json-structure/disney-page-info-structure.json
+  title: PageInfo
+- type: JSONStructure
+  url: json-structure/disney-service-index-structure.json
+  title: ServiceIndex
+- type: Example
+  url: examples/disney-character-example.json
+  title: Character Example
+- type: Example
+  url: examples/disney-character-page-example.json
+  title: CharacterPage Example
+- type: Example
+  url: examples/disney-service-index-example.json
+  title: ServiceIndex Example
+- type: RateLimits
+  url: rate-limits/disney-rate-limits.yml
 features:
-  - name: 9,820+ Disney Characters
-    description: Database of nearly ten thousand Disney character records harvested from the Disney Fandom Wiki.
-  - name: Rich Cross-Reference Fields
-    description: Each character lists their films, shortFilms, tvShows, videoGames, parkAttractions, allies, and enemies as named string arrays.
-  - name: Substring Filtering On Every Field
-    description: Every character field can be filtered by case-insensitive substring through query parameters, enabling targeted lookups (e.g., all characters in a specific film).
-  - name: Page-Based Pagination
-    description: Standard `page` + `pageSize` pagination with previousPage and nextPage URLs returned inline in the `info` envelope.
-  - name: REST And GraphQL
-    description: The same backing data is exposed both as a REST API and as a GraphQL endpoint at /graphql.
-  - name: No Authentication
-    description: All endpoints are publicly accessible — no API key, OAuth, or signup is required.
-  - name: Open Source (BSD-3-Clause)
-    description: Server source is available at github.com/ManuCastrillonM/disney-api and documentation source at github.com/ManuCastrillonM/disneyapi.dev.
-  - name: Service Index At Root
-    description: A `GET /` discovery endpoint enumerates the available REST routes as a JSON map.
+- name: 9,820+ Disney Characters
+  description: Database of nearly ten thousand Disney character records harvested from the Disney Fandom Wiki.
+- name: Rich Cross-Reference Fields
+  description: >-
+    Each character lists their films, shortFilms, tvShows, videoGames, parkAttractions, allies, and enemies as named
+    string arrays.
+- name: Substring Filtering On Every Field
+  description: >-
+    Every character field can be filtered by case-insensitive substring through query parameters, enabling targeted
+    lookups (e.g., all characters in a specific film).
+- name: Page-Based Pagination
+  description: >-
+    Standard `page` + `pageSize` pagination with previousPage and nextPage URLs returned inline in the `info`
+    envelope.
+- name: REST And GraphQL
+  description: The same backing data is exposed both as a REST API and as a GraphQL endpoint at /graphql.
+- name: No Authentication
+  description: All endpoints are publicly accessible — no API key, OAuth, or signup is required.
+- name: Open Source (BSD-3-Clause)
+  description: >-
+    Server source is available at github.com/ManuCastrillonM/disney-api and documentation source at
+    github.com/ManuCastrillonM/disneyapi.dev.
+- name: Service Index At Root
+  description: A `GET /` discovery endpoint enumerates the available REST routes as a JSON map.
 useCases:
-  - name: Disney Fan Apps And Character Browsers
-    description: Powers casual fan apps that let users browse, search, and bookmark Disney characters and their appearances.
-  - name: Trivia And Quiz Games
-    description: Provides ground truth for Disney trivia games (which films features which character, who are X's allies, etc.).
-  - name: Bot And Chatbot Integrations
-    description: Plain JSON payloads are easily injected into Discord, Slack, and Twitter bots that respond to Disney character lookups.
-  - name: Frontend Tutorial Fixture
-    description: Richer than typical Hello-World APIs, useful for teaching pagination, filtering, and image rendering in React/Vue/Svelte tutorials.
-  - name: Data Exploration And Visualization
-    description: The cross-reference arrays (films / TV / games / attractions / allies / enemies) make the dataset a natural fit for graph and network-visualization demos.
-  - name: API Profiling And Mocking Demos
-    description: A small but realistic public API surface that is commonly used to demonstrate OpenAPI generation, Spectral linting, and Microcks mocking.
+- name: Disney Fan Apps And Character Browsers
+  description: Powers casual fan apps that let users browse, search, and bookmark Disney characters and their appearances.
+- name: Trivia And Quiz Games
+  description: Provides ground truth for Disney trivia games (which films features which character, who are X's allies, etc.).
+- name: Bot And Chatbot Integrations
+  description: >-
+    Plain JSON payloads are easily injected into Discord, Slack, and Twitter bots that respond to Disney character
+    lookups.
+- name: Frontend Tutorial Fixture
+  description: >-
+    Richer than typical Hello-World APIs, useful for teaching pagination, filtering, and image rendering in
+    React/Vue/Svelte tutorials.
+- name: Data Exploration And Visualization
+  description: >-
+    The cross-reference arrays (films / TV / games / attractions / allies / enemies) make the dataset a natural fit
+    for graph and network-visualization demos.
+- name: API Profiling And Mocking Demos
+  description: >-
+    A small but realistic public API surface that is commonly used to demonstrate OpenAPI generation, Spectral
+    linting, and Microcks mocking.
 integrations:
-  - name: Disney Fandom Wiki
-    description: Source of truth — character names, films, TV shows, images, and source URLs are harvested from disney.fandom.com.
-  - name: Heroku
-    description: Historical hosting platform for the API and MongoDB instance (per upstream README and Procfile).
-  - name: MongoDB
-    description: Backing data store; characters are modeled as Mongoose documents with mongoose-sequence numeric ids.
-  - name: GitHub
-    description: Source of truth for the BSD-3-Clause licensed implementation, contributors, releases, and Gatsby documentation site.
-  - name: Cloudflare (Disney Parks MCP)
-    description: A related (but unaffiliated) Disney Parks MCP server (`cameronsjo/mouse-mcp`) exposes Disney parks attractions and dining data; not the same API as disneyapi.dev but a sibling Disney data source useful for agent workflows.
+- name: Disney Fandom Wiki
+  description: Source of truth — character names, films, TV shows, images, and source URLs are harvested from disney.fandom.com.
+- name: Heroku
+  description: Historical hosting platform for the API and MongoDB instance (per upstream README and Procfile).
+- name: MongoDB
+  description: Backing data store; characters are modeled as Mongoose documents with mongoose-sequence numeric ids.
+- name: GitHub
+  description: >-
+    Source of truth for the BSD-3-Clause licensed implementation, contributors, releases, and Gatsby documentation
+    site.
+- name: Cloudflare (Disney Parks MCP)
+  description: >-
+    A related (but unaffiliated) Disney Parks MCP server (`cameronsjo/mouse-mcp`) exposes Disney parks attractions and
+    dining data; not the same API as disneyapi.dev but a sibling Disney data source useful for agent workflows.
 solutions:
-  - name: Public Disney Character Reference
-    description: A donation-funded, community-maintained reference dataset for Disney characters that fills the absence of any official Disney developer API.
+- name: Public Disney Character Reference
+  description: >-
+    A donation-funded, community-maintained reference dataset for Disney characters that fills the absence of any
+    official Disney developer API.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
