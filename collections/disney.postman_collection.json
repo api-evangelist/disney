@@ -1,0 +1,674 @@
+{
+  "item": [
+    {
+      "id": "15eb1f3e-7189-4bf8-aaaa-6b115d69c473",
+      "name": "Characters",
+      "description": {
+        "content": "Endpoints that list, retrieve, and filter Disney characters.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "09ddcafe-0c2c-450e-b2db-e7d9b3b9e389",
+          "name": "Disney API List Characters",
+          "request": {
+            "name": "Disney API List Characters",
+            "description": {
+              "content": "Returns a paginated list of Disney characters. Supports paging via `page` and `pageSize`, and supports filtering by any of the character schema fields (`name`, `films`, `shortFilms`, `tvShows`, `videoGames`, `parkAttractions`, `allies`, `enemies`, `alignment`). Filter values are matched as case-insensitive substrings on the server side. When more than one record matches, `data` is an array of character records; when a single record matches, `data` is the record itself.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "character"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "1-based page index. Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "50",
+                  "description": "Number of records per page. Defaults to 50."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring filter against the `name` field."
+                },
+                {
+                  "disabled": false,
+                  "key": "films",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring filter against the `films` array."
+                },
+                {
+                  "disabled": false,
+                  "key": "shortFilms",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring filter against the `shortFilms` array."
+                },
+                {
+                  "disabled": false,
+                  "key": "tvShows",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring filter against the `tvShows` array."
+                },
+                {
+                  "disabled": false,
+                  "key": "videoGames",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring filter against the `videoGames` array."
+                },
+                {
+                  "disabled": false,
+                  "key": "parkAttractions",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring filter against the `parkAttractions` array."
+                },
+                {
+                  "disabled": false,
+                  "key": "allies",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring filter against the `allies` array."
+                },
+                {
+                  "disabled": false,
+                  "key": "enemies",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring filter against the `enemies` array."
+                },
+                {
+                  "disabled": false,
+                  "key": "alignment",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring filter against the `alignment` field."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "329432d4-2eb8-4d57-a55d-af3fca6659df",
+              "name": "A paginated character collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "character"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "name",
+                      "value": "Mickey"
+                    },
+                    {
+                      "key": "films",
+                      "value": "Tangled"
+                    },
+                    {
+                      "key": "shortFilms",
+                      "value": "Tangled Ever After"
+                    },
+                    {
+                      "key": "tvShows",
+                      "value": "Once Upon a Time"
+                    },
+                    {
+                      "key": "videoGames",
+                      "value": "Kingdom Hearts III"
+                    },
+                    {
+                      "key": "parkAttractions",
+                      "value": "Celebrate the Magic"
+                    },
+                    {
+                      "key": "allies",
+                      "value": "Mickey Mouse"
+                    },
+                    {
+                      "key": "enemies",
+                      "value": "Pete"
+                    },
+                    {
+                      "key": "alignment",
+                      "value": "Good"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"info\": {\n    \"count\": 2,\n    \"totalPages\": 4911,\n    \"previousPage\": null,\n    \"nextPage\": \"http://api.disneyapi.dev/character?page=2&pageSize=2\"\n  },\n  \"data\": [\n    {\n      \"_id\": 112,\n      \"name\": \"Achilles\",\n      \"films\": [\n        \"Hercules (film)\"\n      ],\n      \"shortFilms\": [],\n      \"tvShows\": [\n        \"Hercules (TV series)\"\n      ],\n      \"videoGames\": [\n        \"Kingdom Hearts III\"\n      ],\n      \"parkAttractions\": [],\n      \"allies\": [],\n      \"enemies\": [],\n      \"imageUrl\": \"https://static.wikia.nocookie.net/disney/images/6/67/HATS_Achilles.png\",\n      \"url\": \"https://api.disneyapi.dev/characters/112\"\n    },\n    {\n      \"_id\": 18,\n      \"name\": \"Abigail the Cow\",\n      \"films\": [\n        \"The Fox and the Hound\",\n        \"The Fox and the Hound 2\"\n      ],\n      \"shortFilms\": [],\n      \"tvShows\": [],\n      \"videoGames\": [],\n      \"parkAttractions\": [],\n      \"allies\": [],\n      \"enemies\": [],\n      \"imageUrl\": \"https://static.wikia.nocookie.net/disney/images/0/05/Fox-disneyscreencaps_com-901.jpg\",\n      \"url\": \"https://api.disneyapi.dev/characters/18\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a21ec09-d886-45c5-8df0-7ad08770cf79",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "character"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "name",
+                      "value": "Mickey"
+                    },
+                    {
+                      "key": "films",
+                      "value": "Tangled"
+                    },
+                    {
+                      "key": "shortFilms",
+                      "value": "Tangled Ever After"
+                    },
+                    {
+                      "key": "tvShows",
+                      "value": "Once Upon a Time"
+                    },
+                    {
+                      "key": "videoGames",
+                      "value": "Kingdom Hearts III"
+                    },
+                    {
+                      "key": "parkAttractions",
+                      "value": "Celebrate the Magic"
+                    },
+                    {
+                      "key": "allies",
+                      "value": "Mickey Mouse"
+                    },
+                    {
+                      "key": "enemies",
+                      "value": "Pete"
+                    },
+                    {
+                      "key": "alignment",
+                      "value": "Good"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Internal server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3330dae6-0c6c-4147-a378-74da4eded4d8",
+          "name": "Disney API Get Character By Id",
+          "request": {
+            "name": "Disney API Get Character By Id",
+            "description": {
+              "content": "Retrieves a single Disney character by numeric id. The character is returned as a single object under `data` (not wrapped in an array). If the id is not found, `data` is an empty array.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "character",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Numeric character id (mongoose-sequence integer)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d21b7a07-d470-4e92-ae6d-1c8ddd963a4d",
+              "name": "A single character record.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "character",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Numeric character id (mongoose-sequence integer)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"info\": {\n    \"count\": 1,\n    \"totalPages\": 1,\n    \"previousPage\": null,\n    \"nextPage\": null\n  },\n  \"data\": {\n    \"_id\": 308,\n    \"name\": \"Queen Arianna\",\n    \"films\": [\n      \"Tangled\",\n      \"Tangled: Before Ever After\"\n    ],\n    \"shortFilms\": [\n      \"Tangled Ever After\",\n      \"Hare Peace\",\n      \"The Simpsons: May the 12th Be With You\"\n    ],\n    \"tvShows\": [\n      \"Once Upon a Time\",\n      \"Tangled: The Series\"\n    ],\n    \"videoGames\": [\n      \"Disney Princess Enchanting Storybooks\",\n      \"Hidden Worlds\",\n      \"Disney Crossy Road\",\n      \"Kingdom Hearts III\",\n      \"Disney Speedstorm\"\n    ],\n    \"parkAttractions\": [\n      \"Celebrate the Magic\",\n      \"Jingle Bell, Jingle BAM!\"\n    ],\n    \"allies\": [],\n    \"enemies\": [],\n    \"imageUrl\": \"https://static.wikia.nocookie.net/disney/images/1/15/Arianna_Tangled.jpg\",\n    \"url\": \"https://api.disneyapi.dev/characters/308\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50dd2d2a-4a65-4eab-852c-35dcc6a98e05",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "character",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Numeric character id (mongoose-sequence integer)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Internal server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc040102-bcc2-4aac-810f-e9a7b95c1563",
+          "name": "Disney API Get Characters By Id (Plural Alias)",
+          "request": {
+            "name": "Disney API Get Characters By Id (Plural Alias)",
+            "description": {
+              "content": "Plural-path alias for `/character/{id}`. Same behavior as `GET /character/{id}` — retrieves a single Disney character by numeric id. Maintained because `imageUrl` and the `url` field on every record point to `https://api.disneyapi.dev/characters/{id}`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "characters",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Numeric character id (mongoose-sequence integer)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e7c4c776-00e7-4cbe-8c9e-7e6e253f0c02",
+              "name": "A single character record.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "characters",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Numeric character id (mongoose-sequence integer)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"info\": {\n    \"count\": 1,\n    \"totalPages\": 1,\n    \"previousPage\": null,\n    \"nextPage\": null\n  },\n  \"data\": {\n    \"_id\": 308,\n    \"name\": \"Queen Arianna\",\n    \"films\": [\n      \"Tangled\"\n    ],\n    \"shortFilms\": [],\n    \"tvShows\": [\n      \"Tangled: The Series\"\n    ],\n    \"videoGames\": [],\n    \"parkAttractions\": [],\n    \"allies\": [],\n    \"enemies\": [],\n    \"imageUrl\": \"https://static.wikia.nocookie.net/disney/images/1/15/Arianna_Tangled.jpg\",\n    \"url\": \"https://api.disneyapi.dev/characters/308\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "918feb9b-7a47-4fd8-8fe3-c52ccfdbe931",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "characters",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Numeric character id (mongoose-sequence integer)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Internal server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "bb749b08-edce-440d-b0f6-d9d394fe286c",
+      "name": "Index",
+      "description": {
+        "content": "Service discovery endpoint that enumerates available REST routes.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "74df1eeb-df74-4027-9cda-3d5a1572b9c0",
+          "name": "Disney API Get Service Index",
+          "request": {
+            "name": "Disney API Get Service Index",
+            "description": {
+              "content": "Returns a JSON object enumerating the public REST endpoint routes exposed by the service. Useful for runtime service discovery and for hand-rolled clients that want to confirm the available paths.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c29de777-d9ce-49ab-bf9b-52c939ddeebe",
+              "name": "A map of endpoint names to URL templates.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"getCharacter\": \"/character\",\n  \"getCharacterById\": \"/character/:id\",\n  \"getCharactersById\": \"/characters/:id\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bfb1b50-338a-493f-ba45-7889a36945c9",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Internal server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.disneyapi.dev",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "47257855-2688-4ef1-b183-2b7ce5d1006c",
+    "name": "Disney API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Community-maintained RESTful and GraphQL API exposing a database of 9,820+ Disney characters and the films, short films, TV shows, video games, and park attractions they appear in. The API is unauthenticated and read-only — every endpoint is a GET. The project is open source (BSD-3-Clause) at https://github.com/ManuCastrillonM/disney-api and is hosted at https://api.disneyapi.dev. Documentation is published at https://disneyapi.dev and a status page is available at https://status.disneyapi.dev. Disney and Disney characters are trademarks of The Walt Disney Company; this project is community fan-content and is not affiliated with or endorsed by Disney.\n\nContact Support:\n Name: Disney API (community project)",
+      "type": "text/plain"
+    }
+  }
+}

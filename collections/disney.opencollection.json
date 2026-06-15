@@ -1,0 +1,154 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Disney API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Index",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Disney API Get Service Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.disneyapi.dev/"
+          },
+          "docs": "Returns a JSON object enumerating the public REST endpoint routes exposed by the service. Useful for runtime service discovery and for hand-rolled clients that want to confirm the available paths."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Characters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Disney API List Characters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.disneyapi.dev/character",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "1-based page index. Defaults to 1."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. Defaults to 50."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring filter against the `name` field."
+              },
+              {
+                "name": "films",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring filter against the `films` array."
+              },
+              {
+                "name": "shortFilms",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring filter against the `shortFilms` array."
+              },
+              {
+                "name": "tvShows",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring filter against the `tvShows` array."
+              },
+              {
+                "name": "videoGames",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring filter against the `videoGames` array."
+              },
+              {
+                "name": "parkAttractions",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring filter against the `parkAttractions` array."
+              },
+              {
+                "name": "allies",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring filter against the `allies` array."
+              },
+              {
+                "name": "enemies",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring filter against the `enemies` array."
+              },
+              {
+                "name": "alignment",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring filter against the `alignment` field."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of Disney characters. Supports paging via `page` and `pageSize`, and supports filtering by any of the character schema fields (`name`, `films`, `shortFilms`, `tvShows`, `videoGames`, `parkAttractions`, `allies`, `enemies`, `alignment`). Filter values are matched as case-insensitive substrings on the server side. When more than one record matches, `data` is an array of character records; when a single record matches, `data` is the record itself."
+        },
+        {
+          "info": {
+            "name": "Disney API Get Character By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.disneyapi.dev/character/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric character id (mongoose-sequence integer)."
+              }
+            ]
+          },
+          "docs": "Retrieves a single Disney character by numeric id. The character is returned as a single object under `data` (not wrapped in an array). If the id is not found, `data` is an empty array."
+        },
+        {
+          "info": {
+            "name": "Disney API Get Characters By Id (Plural Alias)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.disneyapi.dev/characters/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric character id (mongoose-sequence integer)."
+              }
+            ]
+          },
+          "docs": "Plural-path alias for `/character/{id}`. Same behavior as `GET /character/{id}` — retrieves a single Disney character by numeric id. Maintained because `imageUrl` and the `url` field on every record point to `https://api.disneyapi.dev/characters/{id}`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
