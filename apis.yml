@@ -85,7 +85,7 @@ common:
   title: BSD-3-Clause
 - type: StatusPage
   url: https://status.disneyapi.dev/
-- type: SignUp
+- type: Signup
   url: https://disneyapi.dev/support-us/
   title: Support Us (donations to underwrite hosting)
 - type: GitHubRepository
@@ -122,13 +122,13 @@ common:
 - type: JSONStructure
   url: json-structure/disney-service-index-structure.json
   title: ServiceIndex
-- type: Example
+- type: Examples
   url: examples/disney-character-example.json
   title: Character Example
-- type: Example
+- type: Examples
   url: examples/disney-character-page-example.json
   title: CharacterPage Example
-- type: Example
+- type: Examples
   url: examples/disney-service-index-example.json
   title: ServiceIndex Example
 - type: RateLimits
