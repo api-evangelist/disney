@@ -70,6 +70,8 @@ apis:
   - url: graphql/disney-graphql.md
     type: GraphQL
 common:
+- type: DomainSecurity
+  url: security/disney-domain-security.yml
 - type: Website
   url: https://disneyapi.dev
 - type: Documentation
