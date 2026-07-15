@@ -70,6 +70,8 @@ apis:
   - url: graphql/disney-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/disney-agentic-access.yml
 - type: DomainSecurity
   url: security/disney-domain-security.yml
 - type: Website
