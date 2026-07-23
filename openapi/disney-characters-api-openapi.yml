@@ -1,0 +1,484 @@
+openapi: 3.0.3
+info:
+  title: Disney Characters API
+  description: Community-maintained RESTful and GraphQL API exposing a database of 9,820+ Disney characters and the films, short films, TV shows, video games, and park attractions they appear in. The API is unauthenticated and read-only — every endpoint is a GET. The project is open source (BSD-3-Clause) at https://github.com/ManuCastrillonM/disney-api and is hosted at https://api.disneyapi.dev. Documentation is published at https://disneyapi.dev and a status page is available at https://status.disneyapi.dev. Disney and Disney characters are trademarks of The Walt Disney Company; this project is community fan-content and is not affiliated with or endorsed by Disney.
+  version: 1.0.0
+  contact:
+    name: Disney API (community project)
+    url: https://disneyapi.dev
+  license:
+    name: BSD-3-Clause
+    url: https://github.com/ManuCastrillonM/disney-api/blob/main/LICENSE
+  x-generated-from: documentation+source-code
+  x-last-validated: '2026-05-29'
+servers:
+- url: https://api.disneyapi.dev
+  description: Production REST endpoint
+tags:
+- name: Characters
+  description: Endpoints that list, retrieve, and filter Disney characters.
+paths:
+  /character:
+    get:
+      operationId: listCharacters
+      summary: Disney API List Characters
+      description: Returns a paginated list of Disney characters. Supports paging via `page` and `pageSize`, and supports filtering by any of the character schema fields (`name`, `films`, `shortFilms`, `tvShows`, `videoGames`, `parkAttractions`, `allies`, `enemies`, `alignment`). Filter values are matched as case-insensitive substrings on the server side. When more than one record matches, `data` is an array of character records; when a single record matches, `data` is the record itself.
+      tags:
+      - Characters
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Name'
+      - $ref: '#/components/parameters/Films'
+      - $ref: '#/components/parameters/ShortFilms'
+      - $ref: '#/components/parameters/TvShows'
+      - $ref: '#/components/parameters/VideoGames'
+      - $ref: '#/components/parameters/ParkAttractions'
+      - $ref: '#/components/parameters/Allies'
+      - $ref: '#/components/parameters/Enemies'
+      - $ref: '#/components/parameters/Alignment'
+      responses:
+        '200':
+          description: A paginated character collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CharacterPage'
+              examples:
+                ListCharacters200Example:
+                  summary: Default listCharacters 200 response
+                  x-microcks-default: true
+                  value:
+                    info:
+                      count: 2
+                      totalPages: 4911
+                      previousPage: null
+                      nextPage: http://api.disneyapi.dev/character?page=2&pageSize=2
+                    data:
+                    - _id: 112
+                      name: Achilles
+                      films:
+                      - Hercules (film)
+                      shortFilms: []
+                      tvShows:
+                      - Hercules (TV series)
+                      videoGames:
+                      - Kingdom Hearts III
+                      parkAttractions: []
+                      allies: []
+                      enemies: []
+                      imageUrl: https://static.wikia.nocookie.net/disney/images/6/67/HATS_Achilles.png
+                      url: https://api.disneyapi.dev/characters/112
+                    - _id: 18
+                      name: Abigail the Cow
+                      films:
+                      - The Fox and the Hound
+                      - The Fox and the Hound 2
+                      shortFilms: []
+                      tvShows: []
+                      videoGames: []
+                      parkAttractions: []
+                      allies: []
+                      enemies: []
+                      imageUrl: https://static.wikia.nocookie.net/disney/images/0/05/Fox-disneyscreencaps_com-901.jpg
+                      url: https://api.disneyapi.dev/characters/18
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                ListCharacters500Example:
+                  summary: Default listCharacters 500 response
+                  value:
+                    message: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /character/{id}:
+    get:
+      operationId: getCharacterById
+      summary: Disney API Get Character By Id
+      description: Retrieves a single Disney character by numeric id. The character is returned as a single object under `data` (not wrapped in an array). If the id is not found, `data` is an empty array.
+      tags:
+      - Characters
+      parameters:
+      - $ref: '#/components/parameters/CharacterId'
+      responses:
+        '200':
+          description: A single character record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CharacterSingle'
+              examples:
+                GetCharacterById200Example:
+                  summary: Default getCharacterById 200 response
+                  x-microcks-default: true
+                  value:
+                    info:
+                      count: 1
+                      totalPages: 1
+                      previousPage: null
+                      nextPage: null
+                    data:
+                      _id: 308
+                      name: Queen Arianna
+                      films:
+                      - Tangled
+                      - 'Tangled: Before Ever After'
+                      shortFilms:
+                      - Tangled Ever After
+                      - Hare Peace
+                      - 'The Simpsons: May the 12th Be With You'
+                      tvShows:
+                      - Once Upon a Time
+                      - 'Tangled: The Series'
+                      videoGames:
+                      - Disney Princess Enchanting Storybooks
+                      - Hidden Worlds
+                      - Disney Crossy Road
+                      - Kingdom Hearts III
+                      - Disney Speedstorm
+                      parkAttractions:
+                      - Celebrate the Magic
+                      - Jingle Bell, Jingle BAM!
+                      allies: []
+                      enemies: []
+                      imageUrl: https://static.wikia.nocookie.net/disney/images/1/15/Arianna_Tangled.jpg
+                      url: https://api.disneyapi.dev/characters/308
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                GetCharacterById500Example:
+                  summary: Default getCharacterById 500 response
+                  value:
+                    message: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /characters/{id}:
+    get:
+      operationId: getCharactersById
+      summary: Disney API Get Characters By Id (Plural Alias)
+      description: Plural-path alias for `/character/{id}`. Same behavior as `GET /character/{id}` — retrieves a single Disney character by numeric id. Maintained because `imageUrl` and the `url` field on every record point to `https://api.disneyapi.dev/characters/{id}`.
+      tags:
+      - Characters
+      parameters:
+      - $ref: '#/components/parameters/CharacterId'
+      responses:
+        '200':
+          description: A single character record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CharacterSingle'
+              examples:
+                GetCharactersById200Example:
+                  summary: Default getCharactersById 200 response
+                  x-microcks-default: true
+                  value:
+                    info:
+                      count: 1
+                      totalPages: 1
+                      previousPage: null
+                      nextPage: null
+                    data:
+                      _id: 308
+                      name: Queen Arianna
+                      films:
+                      - Tangled
+                      shortFilms: []
+                      tvShows:
+                      - 'Tangled: The Series'
+                      videoGames: []
+                      parkAttractions: []
+                      allies: []
+                      enemies: []
+                      imageUrl: https://static.wikia.nocookie.net/disney/images/1/15/Arianna_Tangled.jpg
+                      url: https://api.disneyapi.dev/characters/308
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                GetCharactersById500Example:
+                  summary: Default getCharactersById 500 response
+                  value:
+                    message: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    PageInfo:
+      type: object
+      title: PageInfo
+      description: Pagination envelope returned alongside every character response.
+      required:
+      - count
+      - totalPages
+      properties:
+        count:
+          type: integer
+          description: Number of records returned in this page (`data` length, or 1 when `data` is a single object).
+          example: 2
+        totalPages:
+          type: integer
+          description: Total number of pages available for the current filter at the current `pageSize`.
+          example: 4911
+        previousPage:
+          type: string
+          nullable: true
+          format: uri
+          description: Absolute URL to the previous page of results, or null on the first page.
+          example: null
+        nextPage:
+          type: string
+          nullable: true
+          format: uri
+          description: Absolute URL to the next page of results, or null on the last page.
+          example: http://api.disneyapi.dev/character?page=2&pageSize=2
+    CharacterSingle:
+      type: object
+      title: CharacterSingle
+      description: Single-character response envelope returned by the by-id endpoints.
+      required:
+      - info
+      - data
+      properties:
+        info:
+          $ref: '#/components/schemas/PageInfo'
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/Character'
+          - type: array
+            maxItems: 0
+            description: Empty array indicating no character was found for the given id.
+            items: {}
+    CharacterPage:
+      type: object
+      title: CharacterPage
+      description: Paginated character list response. `data` is an array when multiple characters match, or a single object when one matches.
+      required:
+      - info
+      - data
+      properties:
+        info:
+          $ref: '#/components/schemas/PageInfo'
+        data:
+          oneOf:
+          - type: array
+            description: Multiple character records matching the request.
+            items:
+              $ref: '#/components/schemas/Character'
+          - $ref: '#/components/schemas/Character'
+          - type: array
+            maxItems: 0
+            description: Empty array indicating no records matched.
+            items: {}
+    Error:
+      type: object
+      title: Error
+      description: Error envelope returned by the global error handler when an unexpected exception occurs.
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message describing what went wrong.
+          example: Internal server error
+    Character:
+      type: object
+      title: Character
+      description: A single Disney character record sourced from the Disney Wiki.
+      required:
+      - _id
+      - name
+      - url
+      properties:
+        _id:
+          type: integer
+          description: Auto-incrementing numeric character id assigned by the service.
+          example: 308
+        name:
+          type: string
+          description: Display name of the Disney character.
+          example: Queen Arianna
+        films:
+          type: array
+          description: Feature films in which the character appears.
+          items:
+            type: string
+            description: Film title.
+            example: Tangled
+        shortFilms:
+          type: array
+          description: Short films in which the character appears.
+          items:
+            type: string
+            description: Short film title.
+            example: Tangled Ever After
+        tvShows:
+          type: array
+          description: TV shows in which the character appears.
+          items:
+            type: string
+            description: TV show title.
+            example: 'Tangled: The Series'
+        videoGames:
+          type: array
+          description: Video games in which the character appears.
+          items:
+            type: string
+            description: Video game title.
+            example: Kingdom Hearts III
+        parkAttractions:
+          type: array
+          description: Disney park attractions in which the character appears.
+          items:
+            type: string
+            description: Park attraction name.
+            example: Celebrate the Magic
+        allies:
+          type: array
+          description: Named allies of the character within Disney canon.
+          items:
+            type: string
+            description: Ally name.
+            example: Mickey Mouse
+        enemies:
+          type: array
+          description: Named enemies of the character within Disney canon.
+          items:
+            type: string
+            description: Enemy name.
+            example: Pete
+        alignment:
+          type: string
+          description: Moral alignment of the character (e.g. Good, Bad, Neutral) when known.
+          example: Good
+        sourceUrl:
+          type: string
+          format: uri
+          description: Upstream Disney Wiki URL from which the record was sourced.
+          example: https://disney.fandom.com/wiki/Queen_Arianna
+        imageUrl:
+          type: string
+          format: uri
+          description: URL of a character thumbnail image hosted on the Disney Fandom Wiki CDN.
+          example: https://static.wikia.nocookie.net/disney/images/1/15/Arianna_Tangled.jpg
+        url:
+          type: string
+          format: uri
+          description: Canonical self URL for this character record.
+          example: https://api.disneyapi.dev/characters/308
+  parameters:
+    Name:
+      name: name
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `name` field.
+      schema:
+        type: string
+        example: Mickey
+    CharacterId:
+      name: id
+      in: path
+      required: true
+      description: Numeric character id (mongoose-sequence integer).
+      schema:
+        type: integer
+        minimum: 1
+        example: 308
+    Enemies:
+      name: enemies
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `enemies` array.
+      schema:
+        type: string
+        example: Pete
+    Allies:
+      name: allies
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `allies` array.
+      schema:
+        type: string
+        example: Mickey Mouse
+    Alignment:
+      name: alignment
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `alignment` field.
+      schema:
+        type: string
+        example: Good
+    TvShows:
+      name: tvShows
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `tvShows` array.
+      schema:
+        type: string
+        example: Once Upon a Time
+    VideoGames:
+      name: videoGames
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `videoGames` array.
+      schema:
+        type: string
+        example: Kingdom Hearts III
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      description: Number of records per page. Defaults to 50.
+      schema:
+        type: integer
+        minimum: 1
+        default: 50
+        example: 50
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-based page index. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    Films:
+      name: films
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `films` array.
+      schema:
+        type: string
+        example: Tangled
+    ParkAttractions:
+      name: parkAttractions
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `parkAttractions` array.
+      schema:
+        type: string
+        example: Celebrate the Magic
+    ShortFilms:
+      name: shortFilms
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `shortFilms` array.
+      schema:
+        type: string
+        example: Tangled Ever After

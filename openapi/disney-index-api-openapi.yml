@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  title: Disney Characters Index API
+  description: Community-maintained RESTful and GraphQL API exposing a database of 9,820+ Disney characters and the films, short films, TV shows, video games, and park attractions they appear in. The API is unauthenticated and read-only — every endpoint is a GET. The project is open source (BSD-3-Clause) at https://github.com/ManuCastrillonM/disney-api and is hosted at https://api.disneyapi.dev. Documentation is published at https://disneyapi.dev and a status page is available at https://status.disneyapi.dev. Disney and Disney characters are trademarks of The Walt Disney Company; this project is community fan-content and is not affiliated with or endorsed by Disney.
+  version: 1.0.0
+  contact:
+    name: Disney API (community project)
+    url: https://disneyapi.dev
+  license:
+    name: BSD-3-Clause
+    url: https://github.com/ManuCastrillonM/disney-api/blob/main/LICENSE
+  x-generated-from: documentation+source-code
+  x-last-validated: '2026-05-29'
+servers:
+- url: https://api.disneyapi.dev
+  description: Production REST endpoint
+tags:
+- name: Index
+  description: Service discovery endpoint that enumerates available REST routes.
+paths:
+  /:
+    get:
+      operationId: getServiceIndex
+      summary: Disney API Get Service Index
+      description: Returns a JSON object enumerating the public REST endpoint routes exposed by the service. Useful for runtime service discovery and for hand-rolled clients that want to confirm the available paths.
+      tags:
+      - Index
+      responses:
+        '200':
+          description: A map of endpoint names to URL templates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceIndex'
+              examples:
+                GetServiceIndex200Example:
+                  summary: Default getServiceIndex 200 response
+                  x-microcks-default: true
+                  value:
+                    getCharacter: /character
+                    getCharacterById: /character/:id
+                    getCharactersById: /characters/:id
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                GetServiceIndex500Example:
+                  summary: Default getServiceIndex 500 response
+                  value:
+                    message: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ServiceIndex:
+      type: object
+      title: ServiceIndex
+      description: Map of named endpoint operations to their URL templates.
+      required:
+      - getCharacter
+      - getCharacterById
+      - getCharactersById
+      properties:
+        getCharacter:
+          type: string
+          description: URL template for the paginated character list endpoint.
+          example: /character
+        getCharacterById:
+          type: string
+          description: URL template for the single-character-by-id endpoint.
+          example: /character/:id
+        getCharactersById:
+          type: string
+          description: URL template for the plural-path single-character alias.
+          example: /characters/:id
+    Error:
+      type: object
+      title: Error
+      description: Error envelope returned by the global error handler when an unexpected exception occurs.
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message describing what went wrong.
+          example: Internal server error
