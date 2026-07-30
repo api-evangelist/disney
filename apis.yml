@@ -1,4 +1,16 @@
 aid: disney
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/disney.png
 name: Disney API
 description: >-
   Community-maintained RESTful and GraphQL API exposing a database of 9,820+ Disney characters and the films, short
@@ -25,35 +37,12 @@ tags:
 - REST
 - GraphQL
 apis:
-- name: Disney API (REST)
-  description: >-
-    RESTful Disney character API. Four GET endpoints: a service index at the root, a paginated character list at
-    /character, and two by-id endpoints (/character/:id and the plural alias /characters/:id). Supports field-level
-    substring filters on name, films, shortFilms, tvShows, videoGames, parkAttractions, allies, enemies, and
-    alignment.
-  humanURL: https://disneyapi.dev/docs/
-  baseURL: https://api.disneyapi.dev
-  tags:
-  - Characters
-  - REST
-  properties:
-  - type: Documentation
-    url: https://disneyapi.dev/docs/
-  - type: APIReference
-    url: https://disneyapi.dev/docs/
-  - type: SourceCode
-    url: https://github.com/ManuCastrillonM/disney-api
-  - type: OpenAPI
-    url: openapi/disney-openapi.yml
-  - type: Authentication
-    url: https://disneyapi.dev/docs/
-    title: No authentication required (GET-only public API)
 - name: Disney API (GraphQL)
   description: >-
-    GraphQL Disney character API hosted at /graphql. Single root field `characters(page, pageSize, filter)` returns a
-    `CharacterPage` with `items` and `paginationInfo`. The `CharacterFilterInput` accepts id, name, films, shortFilms,
-    tvShows, videoGames, alignment, parkAttractions, allies, and enemies as substring filters. Schema is derived
-    directly from the published source.
+    GraphQL Disney character API hosted at /graphql. Single root field `characters(page, pageSize, filter)`
+    returns a `CharacterPage` with `items` and `paginationInfo`. The `CharacterFilterInput` accepts id,
+    name, films, shortFilms, tvShows, videoGames, alignment, parkAttractions, allies, and enemies as substring
+    filters. Schema is derived directly from the published source.
   humanURL: https://disneyapi.dev/docs/
   baseURL: https://api.disneyapi.dev/graphql
   tags:
@@ -69,6 +58,42 @@ apis:
     title: No authentication required
   - url: graphql/disney-graphql.md
     type: GraphQL
+- aid: disney:disney-characters-api
+  name: Disney API Characters API
+  description: Endpoints that list, retrieve, and filter Disney characters.
+  humanURL: https://disneyapi.dev/docs/
+  baseURL: https://api.disneyapi.dev
+  tags:
+  - Characters
+  properties:
+  - type: OpenAPI
+    url: openapi/disney-characters-api-openapi.yml
+  - type: Documentation
+    url: https://disneyapi.dev/docs/
+  - type: APIReference
+    url: https://disneyapi.dev/docs/
+  - type: SourceCode
+    url: https://github.com/ManuCastrillonM/disney-api
+  - type: Authentication
+    url: https://disneyapi.dev/docs/
+- aid: disney:disney-index-api
+  name: Disney API Index API
+  description: Service discovery endpoint that enumerates available REST routes.
+  humanURL: https://disneyapi.dev/docs/
+  baseURL: https://api.disneyapi.dev
+  tags:
+  - Index
+  properties:
+  - type: OpenAPI
+    url: openapi/disney-index-api-openapi.yml
+  - type: Documentation
+    url: https://disneyapi.dev/docs/
+  - type: APIReference
+    url: https://disneyapi.dev/docs/
+  - type: SourceCode
+    url: https://github.com/ManuCastrillonM/disney-api
+  - type: Authentication
+    url: https://disneyapi.dev/docs/
 common:
 - type: AgenticAccess
   url: agentic-access/disney-agentic-access.yml
