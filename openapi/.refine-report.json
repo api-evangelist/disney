@@ -1,0 +1,16 @@
+{
+  "provider": "disney",
+  "sources": [
+    "disney-characters-api-openapi.yml",
+    "disney-index-api-openapi.yml"
+  ],
+  "outputs": [
+    "disney-characters-api-openapi.yml",
+    "disney-index-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
