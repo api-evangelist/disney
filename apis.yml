@@ -95,6 +95,12 @@ apis:
   - type: Authentication
     url: https://disneyapi.dev/docs/
 common:
+- type: IssueTracker
+  url: https://github.com/ManuCastrillonM/disney-api/issues
+- type: CodeOfConduct
+  url: https://github.com/ManuCastrillonM/disney-api/blob/main/CODE_OF_CONDUCT.md
+- type: ContributionGuide
+  url: https://github.com/ManuCastrillonM/disney-api/blob/main/CONTRIBUTING.md
 - type: AgenticAccess
   url: agentic-access/disney-agentic-access.yml
 - type: DomainSecurity
