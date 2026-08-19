@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Disney Characters Index API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Index",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Disney API Get Service Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.disneyapi.dev/"
+          },
+          "docs": "Returns a JSON object enumerating the public REST endpoint routes exposed by the service. Useful for runtime service discovery and for hand-rolled clients that want to confirm the available paths."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

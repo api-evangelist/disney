@@ -1,0 +1,137 @@
+{
+  "item": [
+    {
+      "id": "68b87037-3f7c-4bd2-a71f-57984b3b423e",
+      "name": "Index",
+      "description": {
+        "content": "Service discovery endpoint that enumerates available REST routes.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bb8586e2-e46f-4a44-96af-9623b0027415",
+          "name": "Disney API Get Service Index",
+          "request": {
+            "name": "Disney API Get Service Index",
+            "description": {
+              "content": "Returns a JSON object enumerating the public REST endpoint routes exposed by the service. Useful for runtime service discovery and for hand-rolled clients that want to confirm the available paths.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "67512a13-63ab-45cc-a879-6099624aad06",
+              "name": "A map of endpoint names to URL templates.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"getCharacter\": \"/character\",\n  \"getCharacterById\": \"/character/:id\",\n  \"getCharactersById\": \"/characters/:id\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5bc06262-2b46-49bc-b7e3-43a3626424eb",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Internal server error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.disneyapi.dev",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "548f5003-727d-40b1-baef-5267ecd412ad",
+    "name": "Disney Characters Index API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Community-maintained RESTful and GraphQL API exposing a database of 9,820+ Disney characters and the films, short films, TV shows, video games, and park attractions they appear in. The API is unauthenticated and read-only — every endpoint is a GET. The project is open source (BSD-3-Clause) at https://github.com/ManuCastrillonM/disney-api and is hosted at https://api.disneyapi.dev. Documentation is published at https://disneyapi.dev and a status page is available at https://status.disneyapi.dev. Disney and Disney characters are trademarks of The Walt Disney Company; this project is community fan-content and is not affiliated with or endorsed by Disney.\n\nContact Support:\n Name: Disney API (community project)",
+      "type": "text/plain"
+    }
+  }
+}
