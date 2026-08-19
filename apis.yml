@@ -20,7 +20,7 @@ description: >-
   project is community fan-content and is not affiliated with or endorsed by Disney.
 url: https://disneyapi.dev
 baseURL: https://api.disneyapi.dev
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-05-29'
 modified: '2026-05-29'
 x-source: manual-create
