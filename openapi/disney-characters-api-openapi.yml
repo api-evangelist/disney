@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Disney Characters API
   description: Community-maintained RESTful and GraphQL API exposing a database of 9,820+ Disney characters and the films, short films, TV shows, video games, and park attractions they appear in. The API is unauthenticated and read-only — every endpoint is a GET. The project is open source (BSD-3-Clause) at https://github.com/ManuCastrillonM/disney-api and is hosted at https://api.disneyapi.dev. Documentation is published at https://disneyapi.dev and a status page is available at https://status.disneyapi.dev. Disney and Disney characters are trademarks of The Walt Disney Company; this project is community fan-content and is not affiliated with or endorsed by Disney.
@@ -218,34 +218,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    PageInfo:
-      type: object
-      title: PageInfo
-      description: Pagination envelope returned alongside every character response.
-      required:
-      - count
-      - totalPages
-      properties:
-        count:
-          type: integer
-          description: Number of records returned in this page (`data` length, or 1 when `data` is a single object).
-          example: 2
-        totalPages:
-          type: integer
-          description: Total number of pages available for the current filter at the current `pageSize`.
-          example: 4911
-        previousPage:
-          type: string
-          nullable: true
-          format: uri
-          description: Absolute URL to the previous page of results, or null on the first page.
-          example: null
-        nextPage:
-          type: string
-          nullable: true
-          format: uri
-          description: Absolute URL to the next page of results, or null on the last page.
-          example: http://api.disneyapi.dev/character?page=2&pageSize=2
     CharacterSingle:
       type: object
       title: CharacterSingle
@@ -263,6 +235,47 @@ components:
             maxItems: 0
             description: Empty array indicating no character was found for the given id.
             items: {}
+    Error:
+      type: object
+      title: Error
+      description: Error envelope returned by the global error handler when an unexpected exception occurs.
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message describing what went wrong.
+          example: Internal server error
+    PageInfo:
+      type: object
+      title: PageInfo
+      description: Pagination envelope returned alongside every character response.
+      required:
+      - count
+      - totalPages
+      properties:
+        count:
+          type: integer
+          description: Number of records returned in this page (`data` length, or 1 when `data` is a single object).
+          example: 2
+        totalPages:
+          type: integer
+          description: Total number of pages available for the current filter at the current `pageSize`.
+          example: 4911
+        previousPage:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Absolute URL to the previous page of results, or null on the first page.
+          example: null
+        nextPage:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Absolute URL to the next page of results, or null on the last page.
+          example: http://api.disneyapi.dev/character?page=2&pageSize=2
     CharacterPage:
       type: object
       title: CharacterPage
@@ -284,17 +297,6 @@ components:
             maxItems: 0
             description: Empty array indicating no records matched.
             items: {}
-    Error:
-      type: object
-      title: Error
-      description: Error envelope returned by the global error handler when an unexpected exception occurs.
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message describing what went wrong.
-          example: Internal server error
     Character:
       type: object
       title: Character
@@ -381,6 +383,40 @@ components:
           description: Canonical self URL for this character record.
           example: https://api.disneyapi.dev/characters/308
   parameters:
+    ShortFilms:
+      name: shortFilms
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `shortFilms` array.
+      schema:
+        type: string
+        example: Tangled Ever After
+    Alignment:
+      name: alignment
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `alignment` field.
+      schema:
+        type: string
+        example: Good
+    ParkAttractions:
+      name: parkAttractions
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `parkAttractions` array.
+      schema:
+        type: string
+        example: Celebrate the Magic
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-based page index. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
     Name:
       name: name
       in: query
@@ -398,38 +434,6 @@ components:
         type: integer
         minimum: 1
         example: 308
-    Enemies:
-      name: enemies
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `enemies` array.
-      schema:
-        type: string
-        example: Pete
-    Allies:
-      name: allies
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `allies` array.
-      schema:
-        type: string
-        example: Mickey Mouse
-    Alignment:
-      name: alignment
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `alignment` field.
-      schema:
-        type: string
-        example: Good
-    TvShows:
-      name: tvShows
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `tvShows` array.
-      schema:
-        type: string
-        example: Once Upon a Time
     VideoGames:
       name: videoGames
       in: query
@@ -438,6 +442,22 @@ components:
       schema:
         type: string
         example: Kingdom Hearts III
+    TvShows:
+      name: tvShows
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `tvShows` array.
+      schema:
+        type: string
+        example: Once Upon a Time
+    Films:
+      name: films
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `films` array.
+      schema:
+        type: string
+        example: Tangled
     PageSize:
       name: pageSize
       in: query
@@ -448,37 +468,19 @@ components:
         minimum: 1
         default: 50
         example: 50
-    Page:
-      name: page
+    Allies:
+      name: allies
       in: query
       required: false
-      description: 1-based page index. Defaults to 1.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
-    Films:
-      name: films
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `films` array.
+      description: Case-insensitive substring filter against the `allies` array.
       schema:
         type: string
-        example: Tangled
-    ParkAttractions:
-      name: parkAttractions
+        example: Mickey Mouse
+    Enemies:
+      name: enemies
       in: query
       required: false
-      description: Case-insensitive substring filter against the `parkAttractions` array.
+      description: Case-insensitive substring filter against the `enemies` array.
       schema:
         type: string
-        example: Celebrate the Magic
-    ShortFilms:
-      name: shortFilms
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `shortFilms` array.
-      schema:
-        type: string
-        example: Tangled Ever After
+        example: Pete

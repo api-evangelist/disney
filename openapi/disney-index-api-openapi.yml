@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Disney Characters Index API
   description: Community-maintained RESTful and GraphQL API exposing a database of 9,820+ Disney characters and the films, short films, TV shows, video games, and park attractions they appear in. The API is unauthenticated and read-only — every endpoint is a GET. The project is open source (BSD-3-Clause) at https://github.com/ManuCastrillonM/disney-api and is hosted at https://api.disneyapi.dev. Documentation is published at https://disneyapi.dev and a status page is available at https://status.disneyapi.dev. Disney and Disney characters are trademarks of The Walt Disney Company; this project is community fan-content and is not affiliated with or endorsed by Disney.
