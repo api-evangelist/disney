@@ -1,8 +1,7 @@
 {
   "provider": "disney",
   "sources": [
-    "disney-characters-api-openapi.yml",
-    "disney-index-api-openapi.yml"
+    "_ae-authored/disney-openapi.yml"
   ],
   "outputs": [
     "disney-characters-api-openapi.yml",
@@ -12,9 +11,12 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "disney-characters-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "disney-index-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "disney-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "disney-characters-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "disney-index-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
