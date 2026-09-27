@@ -1,16 +1,21 @@
 aid: disney
 deliveryModel:
-  model: unknown
-  open_source: unknown
+  model: open-core
+  license: BSD-3-Clause
+  license_evidence:
+    repo: manucastrillonm/disney-api
+    spdx: BSD-3-Clause
+    stars: 69
+  open_source: true
   commercial: true
   callable_host: true
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: medium
   source:
   - openapi
   - pricing
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: unknown
@@ -45,7 +50,7 @@ tags:
 - Entertainment
 - Characters
 - Disney
-- Open-Source
+- Open Source
 - Fan API
 - REST
 - GraphQL
@@ -57,6 +62,7 @@ tags_raw:
 - Fan API
 - REST
 - GraphQL
+- Open-Source
 apis:
 - name: Disney API (GraphQL)
   description: >-
