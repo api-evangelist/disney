@@ -218,6 +218,15 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    CharacterId:
+      name: id
+      in: path
+      required: true
+      description: Numeric character id (mongoose-sequence integer).
+      schema:
+        type: integer
+        minimum: 1
+        example: 308
     Allies:
       name: allies
       in: query
@@ -226,6 +235,22 @@ components:
       schema:
         type: string
         example: Mickey Mouse
+    Name:
+      name: name
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `name` field.
+      schema:
+        type: string
+        example: Mickey
+    ParkAttractions:
+      name: parkAttractions
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `parkAttractions` array.
+      schema:
+        type: string
+        example: Celebrate the Magic
     TvShows:
       name: tvShows
       in: query
@@ -242,6 +267,30 @@ components:
       schema:
         type: string
         example: Kingdom Hearts III
+    Films:
+      name: films
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `films` array.
+      schema:
+        type: string
+        example: Tangled
+    ShortFilms:
+      name: shortFilms
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `shortFilms` array.
+      schema:
+        type: string
+        example: Tangled Ever After
+    Enemies:
+      name: enemies
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `enemies` array.
+      schema:
+        type: string
+        example: Pete
     PageSize:
       name: pageSize
       in: query
@@ -252,47 +301,6 @@ components:
         minimum: 1
         default: 50
         example: 50
-    Name:
-      name: name
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `name` field.
-      schema:
-        type: string
-        example: Mickey
-    ShortFilms:
-      name: shortFilms
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `shortFilms` array.
-      schema:
-        type: string
-        example: Tangled Ever After
-    Films:
-      name: films
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `films` array.
-      schema:
-        type: string
-        example: Tangled
-    ParkAttractions:
-      name: parkAttractions
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `parkAttractions` array.
-      schema:
-        type: string
-        example: Celebrate the Magic
-    CharacterId:
-      name: id
-      in: path
-      required: true
-      description: Numeric character id (mongoose-sequence integer).
-      schema:
-        type: integer
-        minimum: 1
-        example: 308
     Page:
       name: page
       in: query
@@ -311,14 +319,6 @@ components:
       schema:
         type: string
         example: Good
-    Enemies:
-      name: enemies
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `enemies` array.
-      schema:
-        type: string
-        example: Pete
   schemas:
     PageInfo:
       type: object
@@ -350,6 +350,17 @@ components:
           format: uri
           description: Absolute URL to the next page of results, or null on the last page.
           example: http://api.disneyapi.dev/character?page=2&pageSize=2
+    Error:
+      type: object
+      title: Error
+      description: Error envelope returned by the global error handler when an unexpected exception occurs.
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message describing what went wrong.
+          example: Internal server error
     CharacterSingle:
       type: object
       title: CharacterSingle
@@ -367,38 +378,6 @@ components:
             maxItems: 0
             description: Empty array indicating no character was found for the given id.
             items: {}
-    CharacterPage:
-      type: object
-      title: CharacterPage
-      description: Paginated character list response. `data` is an array when multiple characters match, or a single object when one matches.
-      required:
-      - info
-      - data
-      properties:
-        info:
-          $ref: '#/components/schemas/PageInfo'
-        data:
-          oneOf:
-          - type: array
-            description: Multiple character records matching the request.
-            items:
-              $ref: '#/components/schemas/Character'
-          - $ref: '#/components/schemas/Character'
-          - type: array
-            maxItems: 0
-            description: Empty array indicating no records matched.
-            items: {}
-    Error:
-      type: object
-      title: Error
-      description: Error envelope returned by the global error handler when an unexpected exception occurs.
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message describing what went wrong.
-          example: Internal server error
     Character:
       type: object
       title: Character
@@ -484,3 +463,24 @@ components:
           format: uri
           description: Canonical self URL for this character record.
           example: https://api.disneyapi.dev/characters/308
+    CharacterPage:
+      type: object
+      title: CharacterPage
+      description: Paginated character list response. `data` is an array when multiple characters match, or a single object when one matches.
+      required:
+      - info
+      - data
+      properties:
+        info:
+          $ref: '#/components/schemas/PageInfo'
+        data:
+          oneOf:
+          - type: array
+            description: Multiple character records matching the request.
+            items:
+              $ref: '#/components/schemas/Character'
+          - $ref: '#/components/schemas/Character'
+          - type: array
+            maxItems: 0
+            description: Empty array indicating no records matched.
+            items: {}
