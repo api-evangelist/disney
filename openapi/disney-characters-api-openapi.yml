@@ -235,14 +235,6 @@ components:
       schema:
         type: string
         example: Mickey Mouse
-    Name:
-      name: name
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `name` field.
-      schema:
-        type: string
-        example: Mickey
     ParkAttractions:
       name: parkAttractions
       in: query
@@ -251,30 +243,6 @@ components:
       schema:
         type: string
         example: Celebrate the Magic
-    TvShows:
-      name: tvShows
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `tvShows` array.
-      schema:
-        type: string
-        example: Once Upon a Time
-    VideoGames:
-      name: videoGames
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `videoGames` array.
-      schema:
-        type: string
-        example: Kingdom Hearts III
-    Films:
-      name: films
-      in: query
-      required: false
-      description: Case-insensitive substring filter against the `films` array.
-      schema:
-        type: string
-        example: Tangled
     ShortFilms:
       name: shortFilms
       in: query
@@ -283,24 +251,14 @@ components:
       schema:
         type: string
         example: Tangled Ever After
-    Enemies:
-      name: enemies
+    Alignment:
+      name: alignment
       in: query
       required: false
-      description: Case-insensitive substring filter against the `enemies` array.
+      description: Case-insensitive substring filter against the `alignment` field.
       schema:
         type: string
-        example: Pete
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      description: Number of records per page. Defaults to 50.
-      schema:
-        type: integer
-        minimum: 1
-        default: 50
-        example: 50
+        example: Good
     Page:
       name: page
       in: query
@@ -311,56 +269,78 @@ components:
         minimum: 1
         default: 1
         example: 1
-    Alignment:
-      name: alignment
+    PageSize:
+      name: pageSize
       in: query
       required: false
-      description: Case-insensitive substring filter against the `alignment` field.
+      description: Number of records per page. Defaults to 50.
+      schema:
+        type: integer
+        minimum: 1
+        default: 50
+        example: 50
+    TvShows:
+      name: tvShows
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `tvShows` array.
       schema:
         type: string
-        example: Good
+        example: Once Upon a Time
+    Name:
+      name: name
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `name` field.
+      schema:
+        type: string
+        example: Mickey
+    Films:
+      name: films
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `films` array.
+      schema:
+        type: string
+        example: Tangled
+    VideoGames:
+      name: videoGames
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `videoGames` array.
+      schema:
+        type: string
+        example: Kingdom Hearts III
+    Enemies:
+      name: enemies
+      in: query
+      required: false
+      description: Case-insensitive substring filter against the `enemies` array.
+      schema:
+        type: string
+        example: Pete
   schemas:
-    PageInfo:
+    CharacterPage:
       type: object
-      title: PageInfo
-      description: Pagination envelope returned alongside every character response.
+      title: CharacterPage
+      description: Paginated character list response. `data` is an array when multiple characters match, or a single object when one matches.
       required:
-      - count
-      - totalPages
+      - info
+      - data
       properties:
-        count:
-          type: integer
-          description: Number of records returned in this page (`data` length, or 1 when `data` is a single object).
-          example: 2
-        totalPages:
-          type: integer
-          description: Total number of pages available for the current filter at the current `pageSize`.
-          example: 4911
-        previousPage:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Absolute URL to the previous page of results, or null on the first page.
-          example: null
-        nextPage:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Absolute URL to the next page of results, or null on the last page.
-          example: http://api.disneyapi.dev/character?page=2&pageSize=2
-    Error:
-      type: object
-      title: Error
-      description: Error envelope returned by the global error handler when an unexpected exception occurs.
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message describing what went wrong.
-          example: Internal server error
+        info:
+          $ref: '#/components/schemas/PageInfo'
+        data:
+          oneOf:
+          - type: array
+            description: Multiple character records matching the request.
+            items:
+              $ref: '#/components/schemas/Character'
+          - $ref: '#/components/schemas/Character'
+          - type: array
+            maxItems: 0
+            description: Empty array indicating no records matched.
+            items: {}
     CharacterSingle:
       type: object
       title: CharacterSingle
@@ -378,6 +358,17 @@ components:
             maxItems: 0
             description: Empty array indicating no character was found for the given id.
             items: {}
+    Error:
+      type: object
+      title: Error
+      description: Error envelope returned by the global error handler when an unexpected exception occurs.
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message describing what went wrong.
+          example: Internal server error
     Character:
       type: object
       title: Character
@@ -463,24 +454,33 @@ components:
           format: uri
           description: Canonical self URL for this character record.
           example: https://api.disneyapi.dev/characters/308
-    CharacterPage:
+    PageInfo:
       type: object
-      title: CharacterPage
-      description: Paginated character list response. `data` is an array when multiple characters match, or a single object when one matches.
+      title: PageInfo
+      description: Pagination envelope returned alongside every character response.
       required:
-      - info
-      - data
+      - count
+      - totalPages
       properties:
-        info:
-          $ref: '#/components/schemas/PageInfo'
-        data:
-          oneOf:
-          - type: array
-            description: Multiple character records matching the request.
-            items:
-              $ref: '#/components/schemas/Character'
-          - $ref: '#/components/schemas/Character'
-          - type: array
-            maxItems: 0
-            description: Empty array indicating no records matched.
-            items: {}
+        count:
+          type: integer
+          description: Number of records returned in this page (`data` length, or 1 when `data` is a single object).
+          example: 2
+        totalPages:
+          type: integer
+          description: Total number of pages available for the current filter at the current `pageSize`.
+          example: 4911
+        previousPage:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Absolute URL to the previous page of results, or null on the first page.
+          example: null
+        nextPage:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Absolute URL to the next page of results, or null on the last page.
+          example: http://api.disneyapi.dev/character?page=2&pageSize=2
