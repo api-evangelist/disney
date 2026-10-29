@@ -1,4 +1,4 @@
-# Disney API (disney)
+# Disney API
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,95 +66,156 @@
 
 Community-maintained RESTful and GraphQL API exposing a database of 9,820+ Disney characters and the films, short films, TV shows, video games, and park attractions they appear in. The project (BSD-3-Clause) is developed in the open by Manu Castrillon at https://github.com/ManuCastrillonM/disney-api and documented at https://disneyapi.dev. The REST surface is unauthenticated and read-only. Disney and Disney characters are trademarks of The Walt Disney Company; this project is community fan-content and is not affiliated with or endorsed by Disney.
 
-**APIs.json:** [https://disneyapi.dev](https://disneyapi.dev)
+**Areas:** Entertainment · Characters · Disney · Open Source · Fan API · REST · GraphQL
 
-## Tags
+## Disney API on APIs.io
 
-- Entertainment
-- Characters
-- Disney
-- Open Source
-- Fan API
-- REST
-- GraphQL
+Everything profiled for Disney API is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/disney/](https://apis.io/providers/disney/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (3)
 
-- **Created:** 2026-05-29
-- **Modified:** 2026-05-29
+- [Disney API (GraphQL)](https://apis.io/apis/disney/disney-api-graphql/) — GraphQL Disney character API hosted at /graphql. Single root field `characters(page, pageSize, filter)` returns a `CharacterPage` with `items` and…
+- [Disney API Characters API](https://apis.io/apis/disney/disney-characters-api/) — Endpoints that list, retrieve, and filter Disney characters.
+- [Disney API Index API](https://apis.io/apis/disney/disney-index-api/) — Service discovery endpoint that enumerates available REST routes.
 
-## APIs
+### Published properties
 
-### Disney API (REST)
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-RESTful Disney character API. Four GET endpoints: a service index at the root, a paginated character list at /character, and two by-id endpoints (/character/:id and the plural alias /characters/:id). Supports field-level substring filters on name, films, shortFilms, tvShows, videoGames, parkAttractions, allies, enemies, and alignment.
+#### GraphQL (1)
 
-- **Human URL:** [https://disneyapi.dev/docs/](https://disneyapi.dev/docs/)
-- **Base URL:** `https://api.disneyapi.dev`
+GraphQL schemas.
 
-#### Tags
+- [Disney API GraphQL API](https://apis.io/graphqls/disney/disney-graphql/)
 
-- Characters
-- REST
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://disneyapi.dev/docs/)
-- [API Reference](https://disneyapi.dev/docs/)
-- [Source Code](https://github.com/ManuCastrillonM/disney-api)
-- [OpenAPI](openapi/disney-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/disney.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/disney.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Authentication](https://disneyapi.dev/docs/)
+- [Disney Agentic Access](https://apis.io/agentic-access/disney/disney-agentic-access/)
 
-### Disney API (GraphQL)
+#### JSON Schema (4)
 
-GraphQL Disney character API hosted at /graphql. Single root field `characters(page, pageSize, filter)` returns a `CharacterPage` with `items` and `paginationInfo`. The `CharacterFilterInput` accepts id, name, films, shortFilms, tvShows, videoGames, alignment, parkAttractions, allies, and enemies as substring filters. Schema is derived directly from the published source.
+The data models the API reads and writes.
 
-- **Human URL:** [https://disneyapi.dev/docs/](https://disneyapi.dev/docs/)
-- **Base URL:** `https://api.disneyapi.dev/graphql`
+- [Character](https://apis.io/schemas/disney/disney-character/)
+- [CharacterPage](https://apis.io/schemas/disney/disney-character-page/)
+- [PageInfo](https://apis.io/schemas/disney/disney-page-info/)
+- [ServiceIndex](https://apis.io/schemas/disney/disney-service-index/)
 
-#### Tags
+#### JSON Structure (4)
 
-- Characters
-- GraphQL
+Data models expressed in JSON Structure.
 
-#### Properties
+- [Disney Character Page Structure](https://apis.io/json-structure/disney/disney-character-page-structure/)
+- [Disney Character Structure](https://apis.io/json-structure/disney/disney-character-structure/)
+- [Disney Page Info Structure](https://apis.io/json-structure/disney/disney-page-info-structure/)
+- [Disney Service Index Structure](https://apis.io/json-structure/disney/disney-service-index-structure/)
 
-- [Documentation](https://disneyapi.dev/docs/)
-- [Source Code](https://github.com/ManuCastrillonM/disney-api/blob/main/src/graphql/typeDefs.js)
-- [Authentication](https://disneyapi.dev/docs/)
-- [Postman Collection](collections/disney.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/disney.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON-LD (1)
 
-## Common Properties
+Linked-data contexts for the provider's vocabulary.
+
+- [Disney Context](https://apis.io/jsonld/disney/disney-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Disney Vocabulary](https://apis.io/vocabularies/disney/disney-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Disney Character Example](https://apis.io/examples/disney/disney-character-example/)
+- [Disney Character Page Example](https://apis.io/examples/disney/disney-character-page-example/)
+- [Disney Service Index Example](https://apis.io/examples/disney/disney-service-index-example/)
+
+#### Collections (3)
+
+Postman and Open Collection request collections.
+
+- [Disney API](https://apis.io/collections/disney/open-disney/)
+- [Disney Characters API](https://apis.io/collections/disney/open-disney-characters-api/)
+- [Disney Characters Index API](https://apis.io/collections/disney/open-disney-index-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Disney API — jsonschema rules](https://apis.io/rules/disney/disney-jsonschema-spectral-rules/)
+- [Disney API API Rules](https://apis.io/rules/disney/disney-rules/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Disney Domain Security](https://apis.io/security/disney/disney-domain-security/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Disney Rate Limits](https://apis.io/rate-limits/disney/disney-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://disneyapi.dev)
 - [Documentation](https://disneyapi.dev/docs/)
-- [Source Code](https://github.com/ManuCastrillonM/disney-api)
-- [Source Code](https://github.com/ManuCastrillonM/disneyapi.dev)
-- [License](https://github.com/ManuCastrillonM/disney-api/blob/main/LICENSE)
-- [Status Page](https://status.disneyapi.dev/)
-- [Sign Up](https://disneyapi.dev/support-us/)
-- [GitHub Repository](https://github.com/ManuCastrillonM/disney-api)
-- [GitHub Repository](https://github.com/ManuCastrillonM/disneyapi.dev)
-- [Spectral Rules](rules/disney-rules.yml)
-- [Vocabulary](vocabulary/disney-vocabulary.yml)
-- [JSON-LD](json-ld/disney-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/disney-character-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/disney-character-page-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/disney-page-info-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/disney-service-index-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/disney-character-structure.json)
-- [JSON Structure](json-structure/disney-character-page-structure.json)
-- [JSON Structure](json-structure/disney-page-info-structure.json)
-- [JSON Structure](json-structure/disney-service-index-structure.json)
-- [Example](examples/disney-character-example.json)
-- [Example](examples/disney-character-page-example.json)
-- [Example](examples/disney-service-index-example.json)
-- [Rate Limits](rate-limits/disney-rate-limits.yml)
+- [Status](https://status.disneyapi.dev/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 29.6** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 23.6 |
+| Contract governance | 27.3 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 13.2 |
+
+**Agent readiness 33.2** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/disney/](https://apis.io/providers/disney/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Disney API: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/disney/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
